@@ -29,6 +29,7 @@
         "sort-packages": true
     },
     "scripts": {
-        "php-cs-fixer": "php-cs-fixer fix --dry-run"
+        "php-cs-fixer": "php-cs-fixer fix --dry-run",
+        "phpstan": "phpstan analyse --memory-limit=-1"
     }
 }
