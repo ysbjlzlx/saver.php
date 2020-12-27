@@ -8,16 +8,14 @@ class StoreAction extends Action
 {
     protected function action(): ResponseInterface
     {
-        if (file_exists(BASE_DIR) && is_dir(BASE_DIR) && is_writable(BASE_DIR)) {
+        $parseBody = $this->request->getParsedBody();
+        if (file_exists(BASE_DIR) && is_dir(BASE_DIR) && is_writable(BASE_DIR) && !is_null($parseBody)) {
             $fileName = $this->getRandomFileName();
             $path = $this->getFilePath($fileName);
-            $contents = $this->request->getParsedBody();
-            var_dump($contents);
-            file_put_contents($path, $this->request->getBody());
-            echo $fileName;
-        }
 
-        return $this->response->withStatus(201);
+            file_put_contents($path, serialize($parseBody));
+            return $this->respondJson(['key'=>$fileName],201);
+        }
     }
 
     private function getRandomFileName(): string

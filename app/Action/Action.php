@@ -31,6 +31,13 @@ abstract class Action
 
     abstract protected function action(): ResponseInterface;
 
+    protected function respondJson(array $data, int $status = 200): ResponseInterface
+    {
+        $this->response->getBody()->write(json_encode($data, JSON_UNESCAPED_UNICODE));
+
+        return $this->response->withStatus($status);
+    }
+
     protected function getFilePath(string $name): string
     {
         return DATA_DIR.DIRECTORY_SEPARATOR.$name;

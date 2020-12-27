@@ -12,9 +12,9 @@ class ShowAction extends Action
 
         if (file_exists($path) && is_file($path) && is_readable($path)) {
             $contents = file_get_contents($path);
-            $this->response->getBody()->write($contents);
+            $contents = unserialize($contents);
 
-            return $this->response->withHeader('Content-Type', 'application/json');
+            return $this->respondJson($contents);
         }
 
         return $this->response->withStatus(404);
