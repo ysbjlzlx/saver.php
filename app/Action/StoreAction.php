@@ -8,11 +8,22 @@ class StoreAction extends Action
 {
     protected function action(): ResponseInterface
     {
-        $key = $this->args['key'];
-        $path = $this->getFilePath($key);
         if (file_exists(BASE_DIR) && is_dir(BASE_DIR) && is_writable(BASE_DIR)) {
-            file_put_contents($path, 'aa');
+            $fileName = $this->getRandomFileName();
+            $path = $this->getFilePath($fileName);
+            $contents = $this->request->getParsedBody();
+            var_dump($contents);
+            file_put_contents($path, $this->request->getBody());
+            echo $fileName;
         }
-        $this->response->withStatus(201);
+
+        return $this->response->withStatus(201);
+    }
+
+    private function getRandomFileName(): string
+    {
+        $date = date('Ymd');
+
+        return $date.'-'.hash('md5', uniqid(true));
     }
 }

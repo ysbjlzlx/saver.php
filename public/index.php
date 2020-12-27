@@ -14,7 +14,7 @@ define('DATA_DIR', dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'data');
 $app = AppFactory::create();
 
 $app->get('/{key}', ShowAction::class);
-$app->post('/{key}', StoreAction::class);
+$app->post('/', StoreAction::class);
 $app->put('/{key}', UpdateAction::class);
 $app->delete('/{key}', DestroyAction::class);
 
