@@ -2,11 +2,12 @@
 
 namespace App\Action;
 
-class IndexAction
-{
-    public function __invoke()
-    {
-        // TODO: Implement __invoke() method.
-    }
+use Psr\Http\Message\ResponseInterface;
 
+class IndexAction extends Action
+{
+    protected function action(): ResponseInterface
+    {
+        // TODO: Implement action() method.
+    }
 }

@@ -4,15 +4,18 @@ use App\Action\DestroyAction;
 use App\Action\ShowAction;
 use App\Action\StoreAction;
 use App\Action\UpdateAction;
+use Slim\Factory\AppFactory;
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
 define('BASE_DIR', dirname(dirname(__FILE__)));
-define('DATA_DIR', dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'data');
+define('DATA_DIR', dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'data');
 
-Flight::route('GET /@name', [new ShowAction(), '__invoke']);
-Flight::route('POST /@name', [new StoreAction(), '__invoke']);
-Flight::route('PUT /@name', [new UpdateAction, '__invoke']);
-Flight::route('DELETE /@name', [new DestroyAction(), '__invoke']);
+$app = AppFactory::create();
 
-Flight::start();
+$app->get('/{key}', ShowAction::class);
+$app->post('/{key}', StoreAction::class);
+$app->put('/{key}', UpdateAction::class);
+$app->delete('/{key}', DestroyAction::class);
+
+$app->run();

@@ -2,11 +2,12 @@
 
 namespace App\Action;
 
-class UpdateAction
-{
-    public function __invoke()
-    {
-        // TODO: Implement __invoke() method.
-    }
+use Psr\Http\Message\ResponseInterface;
 
+class UpdateAction extends Action
+{
+    protected function action(): ResponseInterface
+    {
+        // TODO: Implement action() method.
+    }
 }

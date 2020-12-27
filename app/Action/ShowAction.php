@@ -2,19 +2,21 @@
 
 namespace App\Action;
 
-use Flight;
+use Psr\Http\Message\ResponseInterface;
 
 class ShowAction extends Action
 {
-    public function __invoke(string $name)
+    protected function action(): ResponseInterface
     {
-        $path = $this->getFilePath($name);
+        $path = $this->getFilePath($this->args['key']);
 
         if (file_exists($path) && is_file($path) && is_readable($path)) {
             $contents = file_get_contents($path);
-            Flight::json(json_decode($contents, JSON_UNESCAPED_UNICODE));
-        }
-        // Flight::halt(404);
-    }
+            $this->response->getBody()->write($contents);
 
+            return $this->response->withHeader('Content-Type', 'application/json');
+        }
+
+        return $this->response->withStatus(404);
+    }
 }
