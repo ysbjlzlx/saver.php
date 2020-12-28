@@ -2,6 +2,9 @@ openapi: 3.0.0
 info:
   title: saver.php
   version: 1.0.0
+servers:
+  - url: http://saver.test
+    description: Local
 paths:
   /{key}:
     get:
