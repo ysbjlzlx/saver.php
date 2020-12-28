@@ -2,19 +2,29 @@
 
 namespace App\Action;
 
+use League\Flysystem\Filesystem;
 use Psr\Http\Message\ResponseInterface;
 
 class StoreAction extends Action
 {
+    /**
+     * @var Filesystem
+     */
+    private $filesystem;
+
+    public function __construct(Filesystem $filesystem)
+    {
+        $this->filesystem = $filesystem;
+    }
+
     protected function action(): ResponseInterface
     {
         $parseBody = $this->request->getParsedBody();
         if (file_exists(BASE_DIR) && is_dir(BASE_DIR) && is_writable(BASE_DIR) && !is_null($parseBody)) {
             $fileName = $this->getRandomFileName();
-            $path = $this->getFilePath($fileName);
+            $this->filesystem->write($fileName, serialize($parseBody));
 
-            file_put_contents($path, serialize($parseBody));
-            return $this->respondJson(['key'=>$fileName],201);
+            return $this->respondJson(['key' => $fileName], 201);
         }
     }
 

@@ -2,16 +2,27 @@
 
 namespace App\Action;
 
+use League\Flysystem\Filesystem;
 use Psr\Http\Message\ResponseInterface;
 
 class ShowAction extends Action
 {
+    /**
+     * @var Filesystem
+     */
+    private $filesystem;
+
+    public function __construct(Filesystem $filesystem)
+    {
+        $this->filesystem = $filesystem;
+    }
+
     protected function action(): ResponseInterface
     {
-        $path = $this->getFilePath($this->args['key']);
+        $key = $this->args['key'];
 
-        if (file_exists($path) && is_file($path) && is_readable($path)) {
-            $contents = file_get_contents($path);
+        if ($this->filesystem->fileExists($key)) {
+            $contents = $this->filesystem->read($this->args['key']);
             $contents = unserialize($contents);
 
             return $this->respondJson($contents);

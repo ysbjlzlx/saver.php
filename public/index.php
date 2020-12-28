@@ -8,6 +8,7 @@ use App\Exception\HttpErrorHandler;
 use App\Exception\ShutdownHandler;
 use App\Middleware\JsonBodyParserMiddleware;
 use App\ResponseEmitter\ResponseEmitter;
+use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
 use Slim\Factory\ServerRequestCreatorFactory;
 
@@ -16,6 +17,15 @@ require __DIR__.'/../vendor/autoload.php';
 define('BASE_DIR', dirname(dirname(__FILE__)));
 define('DATA_DIR', dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'data');
 
+$containerBuilder = new ContainerBuilder();
+
+// Set up dependencies
+$dependencies = require __DIR__.'/../bootstrap/dependencies.php';
+$dependencies($containerBuilder);
+
+$container = $containerBuilder->build();
+
+AppFactory::setContainer($container);
 $app = AppFactory::create();
 $callableResolver = $app->getCallableResolver();
 
