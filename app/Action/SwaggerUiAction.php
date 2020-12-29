@@ -5,7 +5,7 @@ namespace App\Action;
 use Psr\Http\Message\ResponseInterface;
 use Twig\Environment;
 
-class CreateAction extends Action
+class SwaggerUiAction extends Action
 {
     /**
      * @var Environment
@@ -19,9 +19,9 @@ class CreateAction extends Action
 
     protected function action(): ResponseInterface
     {
-        $body = $this->twig->render('profile.html', ['name' => 'a']);
+        $html = $this->twig->render('swagger-ui.html');
+        $this->response->getBody()->write($html);
 
-        $this->response->getBody()->write($body);
         return $this->response;
     }
 }

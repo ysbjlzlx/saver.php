@@ -1,8 +1,11 @@
 <?php
 
+use App\Action\CreateAction;
 use App\Action\DestroyAction;
+use App\Action\IndexAction;
 use App\Action\ShowAction;
 use App\Action\StoreAction;
+use App\Action\SwaggerUiAction;
 use App\Action\UpdateAction;
 use App\Exception\HttpErrorHandler;
 use App\Exception\ShutdownHandler;
@@ -23,11 +26,12 @@ $dependencies = require __DIR__.'/../bootstrap/dependencies.php';
 $dependencies($containerBuilder);
 
 $container = $containerBuilder->build();
-
 AppFactory::setContainer($container);
+
 $app = AppFactory::create();
 $callableResolver = $app->getCallableResolver();
 
+$app->get('/swagger-ui', SwaggerUiAction::class);
 $app->post('/api/store', StoreAction::class);
 $app->delete('/api/destroy', DestroyAction::class);
 $app->put('/api/update', UpdateAction::class);
