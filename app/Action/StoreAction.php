@@ -28,10 +28,10 @@ class StoreAction extends Action
         }
     }
 
-    private function getRandomFileName(): string
+    private function getRandomFileName(string $prefix = ''): string
     {
         $date = date('Ymd');
 
-        return $date.'-'.hash('md5', uniqid(true));
+        return $date.'-'.hash('md5', uniqid($prefix, true));
     }
 }
