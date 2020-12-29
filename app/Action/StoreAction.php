@@ -19,19 +19,23 @@ class StoreAction extends Action
 
     protected function action(): ResponseInterface
     {
-        $parseBody = $this->request->getParsedBody();
-        if (file_exists(BASE_DIR) && is_dir(BASE_DIR) && is_writable(BASE_DIR) && !is_null($parseBody)) {
-            $fileName = $this->getRandomFileName();
-            $this->filesystem->write($fileName, serialize($parseBody));
+        $extension = $this->request->getQueryParam('extension');
+        $fileName = $this->getRandomFileName($extension);
+        $content = $this->request->getBody();
+        $this->filesystem->write($fileName, $content);
 
-            return $this->response->withJson(['key' => $fileName], 201);
-        }
+        return $this->response->withJson(['key' => $fileName], 201);
     }
 
-    private function getRandomFileName(string $prefix = ''): string
+    private function getRandomFileName(string $extension = null, string $prefix = ''): string
     {
         $date = date('Ymd');
 
-        return $date.'-'.hash('md5', uniqid($prefix, true));
+        $filename = $date.'-'.hash('md5', uniqid($prefix, true));
+        if (!is_null($extension)) {
+            $filename = $filename.'.'.$extension;
+        }
+
+        return $filename;
     }
 }

@@ -10,11 +10,11 @@ use Slim\Http\ServerRequest;
 abstract class Action
 {
     /**
-     * @var ServerRequestInterface|ServerRequest
+     * @var ServerRequest
      */
     protected $request;
     /**
-     * @var ResponseInterface|Response
+     * @var Response
      */
     protected $response;
     /**

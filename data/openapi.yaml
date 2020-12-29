@@ -6,6 +6,39 @@ servers:
   - url: http://saver.test
     description: Local
 paths:
+  /api/store:
+    post:
+      summary: 上传资料
+      parameters:
+        - name: extension
+          in: query
+          schema:
+            type: string
+            enum:
+              - text
+              - json
+              - yaml
+          required: true
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+
+      responses:
+        201:
+          description: 上传成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  key:
+                    type: string
+                    required: true
+
+  /api/destroy:
+  /api/update:
   /api/show:
     get:
       summary: 读取资料
