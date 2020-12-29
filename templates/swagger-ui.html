@@ -1,41 +1,26 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-  <meta charset="utf-8" />
-  <title>Swagger UI</title>
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
-    integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
-    crossorigin="anonymous"
-  />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.34.0/swagger-ui.min.css"
-    crossorigin="anonymous"
-  />
-</head>
-<body>
-<div id="swagger-ui"></div>
-<script
-  src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.34.0/swagger-ui-bundle.min.js"
-  crossorigin="anonymous"
-></script>
-<script
-  src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.34.0/swagger-ui-standalone-preset.min.js"
-  crossorigin="anonymous"
-></script>
-<script>
-  window.onload = function () {
-    window.ui = SwaggerUIBundle({
-      dom_id: "#swagger-ui",
-      deepLinking: true,
-      presets: [SwaggerUIBundle.presets.apis],
-      plugins: [SwaggerUIBundle.plugins.DownloadUrl],
-      validatorUrl: "https://validator.swagger.io/validator",
-      url: "/api/show?key=openapi.yaml"
-    });
-  };
-</script>
-</body>
+    <head>
+        <meta charset="utf-8" />
+        <title>Swagger UI</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.34.0/swagger-ui.min.css" crossorigin="anonymous" />
+    </head>
+    <body>
+        <div id="swagger-ui"></div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.34.0/swagger-ui-bundle.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.34.0/swagger-ui-standalone-preset.min.js" crossorigin="anonymous"></script>
+        <script>
+            window.onload = function () {
+                window.ui = SwaggerUIBundle({
+                    dom_id: "#swagger-ui",
+                    deepLinking: true,
+                    presets: [SwaggerUIBundle.presets.apis],
+                    plugins: [SwaggerUIBundle.plugins.DownloadUrl],
+                    validatorUrl: "https://validator.swagger.io/validator",
+                    url: "/api/show?key=openapi.yaml",
+                });
+            };
+        </script>
+    </body>
 </html>

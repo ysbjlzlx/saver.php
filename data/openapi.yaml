@@ -6,12 +6,12 @@ servers:
   - url: http://saver.test
     description: Local
 paths:
-  /{key}:
+  /api/show:
     get:
       summary: 读取资料
       parameters:
         - name: key
-          in: path
+          in: query
           required: true
           schema:
             type: string
