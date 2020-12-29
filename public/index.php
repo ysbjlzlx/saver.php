@@ -28,10 +28,10 @@ AppFactory::setContainer($container);
 $app = AppFactory::create();
 $callableResolver = $app->getCallableResolver();
 
-$app->get('/{key}', ShowAction::class);
-$app->post('/', StoreAction::class);
-$app->put('/{key}', UpdateAction::class);
-$app->delete('/{key}', DestroyAction::class);
+$app->post('/api', StoreAction::class);
+$app->delete('/api', DestroyAction::class);
+$app->put('/api', UpdateAction::class);
+$app->get('/api', ShowAction::class);
 
 // Create Request object from globals
 $serverRequestCreator = ServerRequestCreatorFactory::create();
