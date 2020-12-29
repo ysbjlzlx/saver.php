@@ -2,6 +2,7 @@
 
 namespace App\Action;
 
+use Illuminate\Validation\Validator;
 use League\Flysystem\Filesystem;
 use Psr\Http\Message\ResponseInterface;
 
@@ -11,14 +12,29 @@ class StoreAction extends Action
      * @var Filesystem
      */
     private $filesystem;
+    /**
+     * @var \Illuminate\Validation\Validator
+     */
+    private $validator;
 
-    public function __construct(Filesystem $filesystem)
+    public function __construct(Filesystem $filesystem, Validator $validator)
     {
         $this->filesystem = $filesystem;
+        $this->validator = $validator;
     }
 
     protected function action(): ResponseInterface
     {
+        $rules = [
+            'extension' => 'required|string',
+        ];
+        $this->validator->setData($this->request->getQueryParams());
+        $this->validator->addRules($rules);
+
+        if ($this->validator->fails()) {
+            return $this->response->withJson($this->validator->errors());
+        }
+
         $extension = $this->request->getQueryParam('extension');
         $fileName = $this->getRandomFileName($extension);
         $content = $this->request->getBody();

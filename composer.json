@@ -11,6 +11,7 @@
     "require": {
         "php": "^7.0|^8.0",
         "ext-json": "*",
+        "illuminate/validation": "^7.30",
         "league/flysystem": "^2.0",
         "php-di/php-di": "^6.3",
         "slim/http": "^1.2",
