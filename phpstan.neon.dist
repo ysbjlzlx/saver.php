@@ -1,7 +1,7 @@
 parameters:
   level: 6
-  paths:
-    - app
   bootstrapFiles:
     - bootstrap/dependencies.php
     - public/index.php
+  paths:
+    - app
