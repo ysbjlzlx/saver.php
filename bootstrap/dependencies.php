@@ -10,9 +10,8 @@ return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
         Filesystem::class => function (ContainerInterface $container) {
             $adapter = new League\Flysystem\Local\LocalFilesystemAdapter(DATA_DIR);
-            $filesystem = new League\Flysystem\Filesystem($adapter);
 
-            return $filesystem;
+            return new League\Flysystem\Filesystem($adapter);
         },
     ]);
 };
