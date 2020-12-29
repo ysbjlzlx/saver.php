@@ -25,7 +25,7 @@ class ShowAction extends Action
 
     protected function action(): ResponseInterface
     {
-        $key = $this->args['key'];
+        $key = $this->request->getQueryParam('key');
 
         if ($this->filesystem->fileExists($key)) {
             $mimeType = $this->filesystem->mimeType($key);
