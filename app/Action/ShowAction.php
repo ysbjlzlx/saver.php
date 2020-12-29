@@ -3,6 +3,7 @@
 namespace App\Action;
 
 use League\Flysystem\Filesystem;
+use League\MimeTypeDetection\FinfoMimeTypeDetector;
 use Psr\Http\Message\ResponseInterface;
 
 class ShowAction extends Action
@@ -11,10 +12,15 @@ class ShowAction extends Action
      * @var Filesystem
      */
     private $filesystem;
+    /**
+     * @var FinfoMimeTypeDetector
+     */
+    private $detector;
 
     public function __construct(Filesystem $filesystem)
     {
         $this->filesystem = $filesystem;
+        $this->detector = new FinfoMimeTypeDetector();
     }
 
     protected function action(): ResponseInterface
@@ -25,8 +31,9 @@ class ShowAction extends Action
             $mimeType = $this->filesystem->mimeType($key);
             if ('text/plain' === $mimeType) {
                 $this->response->getBody()->write($this->filesystem->read($key));
+                $extension = $this->detector->detectMimeTypeFromPath($key) ?: $mimeType;
 
-                return $this->response->withStatus(200)->withHeader('Content-Type', 'application/json; charset=utf-8');
+                return $this->response->withStatus(200)->withHeader('Content-Type', $extension);
             }
         }
 
