@@ -22,10 +22,12 @@ class ShowAction extends Action
         $key = $this->args['key'];
 
         if ($this->filesystem->fileExists($key)) {
-            $contents = $this->filesystem->read($this->args['key']);
-            $contents = unserialize($contents);
+            $mimeType = $this->filesystem->mimeType($key);
+            if ('text/plain' === $mimeType) {
+                $this->response->getBody()->write($this->filesystem->read($key));
 
-            return $this->respondJson($contents);
+                return $this->response->withStatus(200)->withHeader('Content-Type', 'application/json; charset=utf-8');
+            }
         }
 
         return $this->response->withStatus(404);

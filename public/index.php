@@ -6,7 +6,6 @@ use App\Action\StoreAction;
 use App\Action\UpdateAction;
 use App\Exception\HttpErrorHandler;
 use App\Exception\ShutdownHandler;
-use App\Middleware\JsonBodyParserMiddleware;
 use App\ResponseEmitter\ResponseEmitter;
 use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
@@ -33,8 +32,6 @@ $app->get('/{key}', ShowAction::class);
 $app->post('/', StoreAction::class);
 $app->put('/{key}', UpdateAction::class);
 $app->delete('/{key}', DestroyAction::class);
-
-$app->add(JsonBodyParserMiddleware::class);
 
 // Create Request object from globals
 $serverRequestCreator = ServerRequestCreatorFactory::create();

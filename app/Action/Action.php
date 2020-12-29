@@ -4,22 +4,31 @@ namespace App\Action;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Slim\Http\Response;
+use Slim\Http\ServerRequest;
 
 abstract class Action
 {
     /**
-     * @var ServerRequestInterface
+     * @var ServerRequestInterface|ServerRequest
      */
     protected $request;
     /**
-     * @var ResponseInterface
+     * @var ResponseInterface|Response
      */
     protected $response;
     /**
-     * @var array
+     * @var array<mixed>
      */
     protected $args;
 
+    /**
+     * @param ServerRequestInterface $request  请求
+     * @param ResponseInterface      $response 响应
+     * @param array<mixed>           $args     路径变量
+     *
+     * @return ResponseInterface 响应
+     */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
         $this->request = $request;
@@ -30,13 +39,6 @@ abstract class Action
     }
 
     abstract protected function action(): ResponseInterface;
-
-    protected function respondJson(array $data, int $status = 200): ResponseInterface
-    {
-        $this->response->getBody()->write(json_encode($data, JSON_UNESCAPED_UNICODE));
-
-        return $this->response->withStatus($status);
-    }
 
     protected function getFilePath(string $name): string
     {

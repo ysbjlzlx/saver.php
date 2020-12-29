@@ -24,7 +24,7 @@ class StoreAction extends Action
             $fileName = $this->getRandomFileName();
             $this->filesystem->write($fileName, serialize($parseBody));
 
-            return $this->respondJson(['key' => $fileName], 201);
+            return $this->response->withJson(['key' => $fileName], 201);
         }
     }
 
