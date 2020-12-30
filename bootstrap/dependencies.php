@@ -23,7 +23,7 @@ return function (ContainerBuilder $containerBuilder) {
 
             return new Twig\Environment($loader);
         },
-        Validator::class => function (ContainerInterface $container) {
+        Factory::class => function (ContainerInterface $container) {
             $langPath = __DIR__.'/../vars/lang';
             $fileLoader = new FileLoader(new Illuminate\Filesystem\Filesystem(), $langPath);
             $translator = new Translator($fileLoader, 'zh-CN');
