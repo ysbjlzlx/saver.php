@@ -32,13 +32,13 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - key
                 properties:
                   key:
                     type: string
-                    required: true
-
-  /api/destroy:
-  /api/update:
+        422:
+          $ref: '#/components/responses/422'
   /api/show:
     get:
       summary: 读取资料
@@ -55,3 +55,20 @@ paths:
             application/json:
               schema:
                 type: object
+        404:
+          $ref: '#/components/responses/404'
+components:
+  responses:
+    404:
+      description: 未找到相关文件
+    422:
+      description: 传参错误
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties:
+              type: array
+              items:
+                type: string
+
