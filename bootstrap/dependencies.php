@@ -36,7 +36,7 @@ return function (ContainerBuilder $containerBuilder) {
         Factory::class => function (ContainerInterface $container) {
             $langPath = __DIR__.'/../vars/lang';
             $fileLoader = new FileLoader(new Illuminate\Filesystem\Filesystem(), $langPath);
-            $translator = new Translator($fileLoader, 'zh-CN');
+            $translator = new Translator($fileLoader, 'zh_CN');
 
             return new Factory($translator);
         },
