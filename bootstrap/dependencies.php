@@ -7,6 +7,8 @@ use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\Translator;
 use Illuminate\Validation\Factory;
 use League\Flysystem\Filesystem;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use Psr\Container\ContainerInterface;
 use Twig\Environment;
 
@@ -37,6 +39,18 @@ return function (ContainerBuilder $containerBuilder) {
             $translator = new Translator($fileLoader, 'zh-CN');
 
             return new Factory($translator);
+        },
+        /*
+         * Monolog 日志
+         */
+        Logger::class => function (ContainerInterface $container) {
+            $name = 'default';
+            $path = __DIR__.'/../vars/logs';
+            $streamHandler = new StreamHandler($path);
+            $logger = new Logger($name);
+            $logger->pushHandler($streamHandler);
+
+            return $logger;
         },
     ]);
 };
