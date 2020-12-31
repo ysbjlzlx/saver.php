@@ -2,6 +2,8 @@
 
 namespace App\Action;
 
+use Illuminate\Validation\Factory;
+use Monolog\Logger;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Http\Response;
@@ -21,6 +23,20 @@ abstract class Action
      * @var array<mixed>
      */
     protected $args;
+    /**
+     * @var Logger
+     */
+    protected $logger;
+    /**
+     * @var Factory
+     */
+    protected $validator;
+
+    public function __construct(Logger $logger, Factory $validator)
+    {
+        $this->logger = $logger;
+        $this->validator = $validator;
+    }
 
     /**
      * @param ServerRequestInterface $request  请求

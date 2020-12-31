@@ -6,6 +6,7 @@ use Illuminate\Validation\Factory;
 use Illuminate\Validation\ValidationException;
 use League\Flysystem\Filesystem;
 use League\Flysystem\FilesystemException;
+use Monolog\Logger;
 use Psr\Http\Message\ResponseInterface;
 
 class StoreAction extends Action
@@ -14,14 +15,11 @@ class StoreAction extends Action
      * @var Filesystem
      */
     private $filesystem;
-    /**
-     * @var Factory
-     */
-    private $validator;
 
-    public function __construct(Factory $validator, Filesystem $filesystem)
+    public function __construct(Logger $logger, Factory $validator, Filesystem $filesystem)
     {
-        $this->validator = $validator;
+        parent::__construct($logger, $validator);
+
         $this->filesystem = $filesystem;
     }
 

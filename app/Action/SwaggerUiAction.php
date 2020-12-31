@@ -2,6 +2,8 @@
 
 namespace App\Action;
 
+use Illuminate\Validation\Factory;
+use Monolog\Logger;
 use Psr\Http\Message\ResponseInterface;
 use Twig\Environment;
 
@@ -12,8 +14,9 @@ class SwaggerUiAction extends Action
      */
     private $twig;
 
-    public function __construct(Environment $twig)
+    public function __construct(Logger $logger, Factory $validator, Environment $twig)
     {
+        parent::__construct($logger, $validator);
         $this->twig = $twig;
     }
 
