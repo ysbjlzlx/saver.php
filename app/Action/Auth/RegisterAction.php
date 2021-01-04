@@ -11,7 +11,8 @@ class RegisterAction extends Action
     {
         $rules = [
             'username' => 'required|string|between:3,16',
-            'password' => 'required|string|min:6',
+            'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => 'required',
         ];
         $this->validator->validate($this->request->getParsedBody(), $rules);
     }
