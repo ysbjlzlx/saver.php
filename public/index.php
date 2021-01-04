@@ -1,6 +1,7 @@
 <?php
 
 use App\Action\DestroyAction;
+use App\Action\HealthAction;
 use App\Action\ShowAction;
 use App\Action\StoreAction;
 use App\Action\SwaggerUiAction;
@@ -34,6 +35,7 @@ $callableResolver = $app->getCallableResolver();
  */
 require __DIR__.'/../bootstrap/bootstrap.php';
 
+$app->any('/health', HealthAction::class);
 $app->get('/swagger-ui', SwaggerUiAction::class);
 $app->post('/api/store', StoreAction::class);
 $app->delete('/api/destroy', DestroyAction::class);
