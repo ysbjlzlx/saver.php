@@ -4,6 +4,7 @@ namespace App\Action;
 
 use App\Model\UserModel;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Psr\Http\Message\ResponseInterface;
 
 class HealthAction extends Action
@@ -23,7 +24,7 @@ class HealthAction extends Action
             UserModel::query()->firstOrFail();
 
             return true;
-        } catch (ModelNotFoundException $exception) {
+        } catch (ModelNotFoundException | QueryException $exception) {
             return false;
         }
     }
