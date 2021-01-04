@@ -1,8 +1,6 @@
 <?php
 
-use App\Action\CreateAction;
 use App\Action\DestroyAction;
-use App\Action\IndexAction;
 use App\Action\ShowAction;
 use App\Action\StoreAction;
 use App\Action\SwaggerUiAction;
@@ -30,6 +28,11 @@ AppFactory::setContainer($container);
 
 $app = AppFactory::create();
 $callableResolver = $app->getCallableResolver();
+
+/**
+ * 初始化数据库.
+ */
+require __DIR__.'/../bootstrap/bootstrap.php';
 
 $app->get('/swagger-ui', SwaggerUiAction::class);
 $app->post('/api/store', StoreAction::class);
