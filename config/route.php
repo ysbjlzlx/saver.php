@@ -1,5 +1,6 @@
 <?php
 
+use App\Action\Auth\RegisterAction;
 use App\Action\DestroyAction;
 use App\Action\HealthAction;
 use App\Action\ShowAction;
@@ -15,4 +16,6 @@ return function (App $app) {
     $app->delete('/api/destroy', DestroyAction::class);
     $app->put('/api/update', UpdateAction::class);
     $app->get('/api/show', ShowAction::class);
+    // auth
+    $app->post('/api/auth/register', RegisterAction::class);
 };

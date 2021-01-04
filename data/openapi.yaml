@@ -5,7 +5,40 @@ info:
 servers:
   - url: http://saver.test
     description: Local
+tags:
+  - name: auth
+    description: 用户验证
 paths:
+  /api/auth/register:
+    post:
+      summary: 用户注册
+      tags:
+        - auth
+      requestBody:
+        description: 请求参数
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+                - password_confirmation
+              properties:
+                username:
+                  type: string
+                  minimum: 3
+                  maximum: 16
+                password:
+                  type: string
+                  minimum: 6
+                password_confirmation:
+                  type: string
+                  minimum: 6
+      responses:
+        422:
+          $ref: '#/components/responses/422'
+
   /api/store:
     post:
       summary: 上传资料
