@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Model\UserModel;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserService
 {
@@ -32,6 +33,21 @@ class UserService
         $user->username = $username;
         $user->password = password_hash($password, PASSWORD_BCRYPT);
         $user->save();
+
+        return $user;
+    }
+
+    public function getUserByUsernameAndPassword(string $username, string $password = null)
+    {
+        $user = null;
+        try {
+            $user = UserModel::query()->where('username', $username)->firstOrFail();
+        } catch (ModelNotFoundException $exception) {
+            return null;
+        }
+        if (is_null($password) || !password_verify($password, $user->password)) {
+            return null;
+        }
 
         return $user;
     }
