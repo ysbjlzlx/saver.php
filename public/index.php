@@ -1,11 +1,5 @@
 <?php
 
-use App\Action\DestroyAction;
-use App\Action\HealthAction;
-use App\Action\ShowAction;
-use App\Action\StoreAction;
-use App\Action\SwaggerUiAction;
-use App\Action\UpdateAction;
 use App\Exception\HttpErrorHandler;
 use App\Exception\ShutdownHandler;
 use App\ResponseEmitter\ResponseEmitter;
@@ -35,12 +29,11 @@ $callableResolver = $app->getCallableResolver();
  */
 require __DIR__.'/../bootstrap/bootstrap.php';
 
-$app->any('/health', HealthAction::class);
-$app->get('/swagger-ui', SwaggerUiAction::class);
-$app->post('/api/store', StoreAction::class);
-$app->delete('/api/destroy', DestroyAction::class);
-$app->put('/api/update', UpdateAction::class);
-$app->get('/api/show', ShowAction::class);
+/**
+ * 加载路由.
+ */
+$route = require __DIR__.'/../config/route.php';
+$route($app);
 
 // Create Request object from globals
 $serverRequestCreator = ServerRequestCreatorFactory::create();
