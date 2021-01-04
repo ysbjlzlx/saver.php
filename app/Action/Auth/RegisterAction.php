@@ -3,6 +3,7 @@
 namespace App\Action\Auth;
 
 use App\Action\Action;
+use App\Model\UserModel;
 use App\Service\UserService;
 use Illuminate\Validation\Factory;
 use Illuminate\Validation\ValidationException;
@@ -43,6 +44,13 @@ class RegisterAction extends Action
         }
         $user = $this->userService->store($params['username'], $params['password']);
 
-        return $this->response->withJson($user->toArray());
+        return $this->response->withJson($this->formatter($user));
+    }
+
+    private function formatter(UserModel $userModel): array
+    {
+        return [
+            'username' => $userModel->username,
+        ];
     }
 }
