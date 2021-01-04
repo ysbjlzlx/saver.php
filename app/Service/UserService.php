@@ -17,4 +17,22 @@ class UserService
     {
         return UserModel::query()->where('username', $username)->exists();
     }
+
+    /**
+     * 添加用户.
+     *
+     * @param string $username 用户名
+     * @param string $password 密码
+     *
+     * @return UserModel 用户
+     */
+    public function store(string $username, string $password): UserModel
+    {
+        $user = new UserModel();
+        $user->username = $username;
+        $user->password = password_hash($password, PASSWORD_BCRYPT);
+        $user->save();
+
+        return $user;
+    }
 }

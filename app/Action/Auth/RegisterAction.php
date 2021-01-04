@@ -32,11 +32,17 @@ class RegisterAction extends Action
             'password' => 'required|string|min:6|confirmed',
             'password_confirmation' => 'required',
         ];
-        $params = $this->validator->validate($this->request->getParsedBody(), $rules);
+
+        $validator = $this->validator->make($this->request->getParsedBody(), $rules);
+        $params = $validator->validate();
         // 校验用户是否存在
         $exists = $this->userService->existsByUsername($params['username']);
         if ($exists) {
-            throw ValidationException::withMessages(['username' => ['该用户名已经被注册']]);
+            $validator->errors()->add('username', '该用户名已经被注册');
+            throw new ValidationException($validator);
         }
+        $user = $this->userService->store($params['username'], $params['password']);
+
+        return $this->response->withJson($user->toArray());
     }
 }
