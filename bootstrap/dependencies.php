@@ -45,7 +45,7 @@ return function (ContainerBuilder $containerBuilder) {
          */
         Logger::class => function (ContainerInterface $container) {
             $name = 'default';
-            $path = __DIR__.'/../vars/logs';
+            $path = __DIR__.'/../vars/logs/'.$name.'-'.date('Ymd').'.log';
             $streamHandler = new StreamHandler($path);
             $logger = new Logger($name);
             $logger->pushHandler($streamHandler);

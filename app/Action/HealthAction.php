@@ -3,7 +3,6 @@
 namespace App\Action;
 
 use App\Model\UserModel;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Psr\Http\Message\ResponseInterface;
 
@@ -21,10 +20,17 @@ class HealthAction extends Action
     private function checkDatabase(): bool
     {
         try {
-            UserModel::query()->firstOrFail();
+            UserModel::query()->first();
 
             return true;
-        } catch (ModelNotFoundException | QueryException $exception) {
+        } catch (QueryException $exception) {
+            $this->logger->error('数据库暂无法使用', [
+                'code' => $exception->getCode(),
+                'message' => $exception->getMessage(),
+                'file' => $exception->getFile(),
+                'line' => $exception->getLine(),
+            ]);
+
             return false;
         }
     }
