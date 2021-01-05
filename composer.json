@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": "^7.2|^8.0",
+        "php": "^7.3|^8.0",
         "ext-json": "*",
         "illuminate/database": "^7.30",
         "illuminate/validation": "^7.30",
@@ -34,10 +34,11 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Test\\": "tests"
+            "Tests\\": "tests/"
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",

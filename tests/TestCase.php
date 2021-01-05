@@ -1,10 +1,7 @@
 <?php
 
+namespace Tests;
 
-namespace Test;
-
-
-class TestCase extends \PHPUnit\Framework\TestCase
+abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
-
 }

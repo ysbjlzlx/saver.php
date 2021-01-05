@@ -5,3 +5,4 @@ parameters:
     - public/index.php
   paths:
     - app
+    - tests

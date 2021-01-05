@@ -1,9 +1,9 @@
 <?php
 
-namespace Test\Service;
+namespace Tests\Service;
 
 use App\Service\UserService;
-use Test\TestCase;
+use Tests\TestCase;
 
 class UserServiceTest extends TestCase
 {
