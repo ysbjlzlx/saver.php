@@ -3,10 +3,13 @@
 namespace Tests\Service;
 
 use App\Service\UserService;
-use Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class UserServiceTest extends TestCase
 {
+    /**
+     * @var UserService
+     */
     private static $userService;
 
     public static function setUpBeforeClass(): void
@@ -14,7 +17,7 @@ class UserServiceTest extends TestCase
         self::$userService = new UserService();
     }
 
-    public function testExistsByUsername()
+    public function testExistsByUsername(): void
     {
         $result = self::$userService->existsByUsername('admin');
         $this->assertFalse($result);
