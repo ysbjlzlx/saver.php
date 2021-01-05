@@ -45,7 +45,9 @@
         "sort-packages": true
     },
     "scripts": {
+        "start": "php -S localhost:8080 -t public",
         "php-cs-fixer": "php-cs-fixer fix --dry-run",
-        "phpstan": "phpstan analyse --memory-limit=-1"
+        "phpstan": "phpstan analyse --memory-limit=-1",
+        "test": "phpunit"
     }
 }
