@@ -11,6 +11,9 @@ use Psr\Http\Message\ResponseInterface;
 
 class LoginAction extends Action
 {
+    /**
+     * @var UserService
+     */
     private $userService;
 
     public function __construct(Logger $logger, Factory $validator, UserService $userService)
@@ -19,6 +22,11 @@ class LoginAction extends Action
         $this->userService = $userService;
     }
 
+    /**
+     * @return ResponseInterface 响应
+     *
+     * @throws ValidationException 前端校验
+     */
     protected function action(): ResponseInterface
     {
         $rules = [

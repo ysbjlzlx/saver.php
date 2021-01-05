@@ -51,4 +51,16 @@ class UserService
 
         return $user;
     }
+
+    /**
+     * @todo
+     */
+    public function getUserById(int $id)
+    {
+        try {
+            UserModel::query()->findOrFail($id);
+        } catch (ModelNotFoundException $exception) {
+            return null;
+        }
+    }
 }
