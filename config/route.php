@@ -4,10 +4,12 @@ use App\Action\Auth\LoginAction;
 use App\Action\Auth\RegisterAction;
 use App\Action\DestroyAction;
 use App\Action\HealthAction;
+use App\Action\HomeAction;
 use App\Action\ShowAction;
 use App\Action\StoreAction;
 use App\Action\SwaggerUiAction;
 use App\Action\UpdateAction;
+use App\Middleware\AuthMiddleware;
 use Slim\App;
 
 return function (App $app) {
@@ -20,4 +22,6 @@ return function (App $app) {
     // auth
     $app->post('/api/auth/register', RegisterAction::class);
     $app->post('/api/auth/login', LoginAction::class);
+    // home
+    $app->get('/api/home', HomeAction::class)->add(AuthMiddleware::class);
 };

@@ -8,6 +8,8 @@ servers:
 tags:
   - name: auth
     description: 用户验证
+  - name: home
+    description: 登录验证
 paths:
   /api/auth/register:
     post:
@@ -78,6 +80,18 @@ paths:
                     type: string
         422:
           $ref: '#/components/responses/422'
+  /api/home:
+    get:
+      summary: 登录验证
+      tags:
+        - home
+      responses:
+        200:
+          description: 正常响应
+          content:
+            application/json:
+              schema:
+                type: object
 
 
   /api/store:
