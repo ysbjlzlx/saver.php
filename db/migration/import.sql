@@ -38,6 +38,7 @@ CREATE TABLE `user_token`
     `ip`         VARCHAR(255)    DEFAULT ''                NOT NULL COMMENT 'IP 地址',
     `longitude`  DECIMAL(11, 8)  DEFAULT 0                 NOT NULL COMMENT '经度',
     `latitude`   DECIMAL(10, 8)  DEFAULT 0                 NOT NULL COMMENT '纬度',
+    `deleted_at` TIMESTAMP       DEFAULT NULL              NULL COMMENT '',
     `updated_at` TIMESTAMP       DEFAULT CURRENT_TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `created_at` TIMESTAMP       DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '创建时间',
     PRIMARY KEY (`id`),
