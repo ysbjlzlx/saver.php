@@ -3,6 +3,9 @@
 namespace App\Service;
 
 use App\Model\UserModel;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserService
@@ -37,15 +40,21 @@ class UserService
         return $user;
     }
 
+    /**
+     * @param string      $username 用户名
+     * @param string|null $password 密码
+     *
+     * @return Builder|Model|null
+     */
     public function getUserByUsernameAndPassword(string $username, string $password = null)
     {
         $user = null;
         try {
             $user = UserModel::query()->where('username', $username)->firstOrFail();
+            if (!is_null($password) && !password_verify($password, $user->password)) {
+                $user = null;
+            }
         } catch (ModelNotFoundException $exception) {
-            return null;
-        }
-        if (is_null($password) || !password_verify($password, $user->password)) {
             return null;
         }
 
@@ -53,12 +62,14 @@ class UserService
     }
 
     /**
-     * @todo
+     * @param int $id 用户 ID
+     *
+     * @return Builder|Builder[]|Collection|Model|null 用户
      */
     public function getUserById(int $id)
     {
         try {
-            UserModel::query()->findOrFail($id);
+            return UserModel::query()->findOrFail($id);
         } catch (ModelNotFoundException $exception) {
             return null;
         }
