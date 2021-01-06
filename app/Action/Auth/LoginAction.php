@@ -4,6 +4,7 @@ namespace App\Action\Auth;
 
 use App\Action\Action;
 use App\Service\UserService;
+use App\Service\UserTokenService;
 use Illuminate\Validation\Factory;
 use Illuminate\Validation\ValidationException;
 use Monolog\Logger;
@@ -15,11 +16,16 @@ class LoginAction extends Action
      * @var UserService
      */
     private $userService;
+    /**
+     * @var UserTokenService
+     */
+    private $userTokenService;
 
-    public function __construct(Logger $logger, Factory $validator, UserService $userService)
+    public function __construct(Logger $logger, Factory $validator, UserService $userService, UserTokenService $userTokenService)
     {
         parent::__construct($logger, $validator);
         $this->userService = $userService;
+        $this->userTokenService = $userTokenService;
     }
 
     /**
@@ -42,7 +48,15 @@ class LoginAction extends Action
             $validator->errors()->add('username', '用户名或密码错误');
             throw new ValidationException($validator);
         }
+        $loginParams = [
+            'ua' => $this->request->getHeaderLine('User-Agent'),
+            'ip' => $this->request->getHeaderLine('Client-Ip'),
+        ];
+        $userTokenModel = $this->userTokenService->store($user, $loginParams);
+        $data = [
+            'token' => $userTokenModel->token,
+        ];
 
-        return $this->response->withStatus(200);
+        return $this->response->withJson($data);
     }
 }

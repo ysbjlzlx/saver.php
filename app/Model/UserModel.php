@@ -13,4 +13,10 @@ use Illuminate\Database\Eloquent\Model;
 class UserModel extends Model
 {
     protected $table = 'user';
+    /**
+     * 隐藏字段.
+     *
+     * @var string[]
+     */
+    protected $hidden = ['password'];
 }

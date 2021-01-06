@@ -19,6 +19,7 @@ class UserTokenService
         $userTokenModel = null;
         try {
             $userTokenModel = UserTokenModel::query()->where('token', $token)->firstOrFail();
+            $userTokenModel->touch();
 
             return $userTokenModel->user();
         } catch (ModelNotFoundException $exception) {
@@ -27,8 +28,8 @@ class UserTokenService
     }
 
     /**
-     * @param UserModel $userModel 用户
-     * @param array{$ua: string, $ip: string} $params    登录参数
+     * @param UserModel                           $userModel 用户
+     * @param array{'ua'?: string, 'ip'?: string} $params    登录参数
      *
      * @return UserTokenModel 登录记录
      */
