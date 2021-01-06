@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class UserModel.
  *
+ * @property int    $id       编号
  * @property string $username 用户名
  * @property string $password 密码
  */

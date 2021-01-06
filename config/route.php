@@ -1,5 +1,6 @@
 <?php
 
+use App\Action\Auth\LoginAction;
 use App\Action\Auth\RegisterAction;
 use App\Action\DestroyAction;
 use App\Action\HealthAction;
@@ -18,4 +19,5 @@ return function (App $app) {
     $app->get('/api/show', ShowAction::class);
     // auth
     $app->post('/api/auth/register', RegisterAction::class);
+    $app->post('/api/auth/login', LoginAction::class);
 };

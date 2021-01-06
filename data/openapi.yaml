@@ -29,15 +29,56 @@ paths:
                   type: string
                   minimum: 3
                   maximum: 16
+                  example: admin
                 password:
                   type: string
                   minimum: 6
+                  example: '123456'
                 password_confirmation:
                   type: string
                   minimum: 6
+                  example: '123456'
       responses:
         422:
           $ref: '#/components/responses/422'
+  /api/auth/login:
+    post:
+      summary: 登录接口
+      tags:
+        - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                  minimum: 3
+                  maximum: 16
+                  example: admin
+                password:
+                  type: string
+                  minimum: 6
+                  example: '123456'
+      responses:
+        200:
+          description: 登录成功的响应
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - token
+                properties:
+                  token:
+                    type: string
+        422:
+          $ref: '#/components/responses/422'
+
 
   /api/store:
     post:
