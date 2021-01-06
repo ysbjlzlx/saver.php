@@ -2,12 +2,18 @@
 
 namespace App\Action;
 
+use App\Model\UserModel;
 use Psr\Http\Message\ResponseInterface;
 
 class HomeAction extends Action
 {
     protected function action(): ResponseInterface
     {
-        return $this->response->withJson(['a' => 'a']);
+        /**
+         * @var UserModel
+         */
+        $user = $this->request->getAttribute('user');
+
+        return $this->response->withJson($user->toArray());
     }
 }

@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $ip
  * @property string $longitude
  * @property string $latitude
+ *
+ * @property UserModel $user
  */
 class UserTokenModel extends Model
 {

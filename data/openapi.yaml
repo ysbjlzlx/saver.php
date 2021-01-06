@@ -85,6 +85,12 @@ paths:
       summary: 登录验证
       tags:
         - home
+      parameters:
+        - name: token
+          schema:
+            type: string
+          in: query
+          required: true
       responses:
         200:
           description: 正常响应

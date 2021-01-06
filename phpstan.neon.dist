@@ -11,3 +11,4 @@ parameters:
   paths:
     - app
     - tests
+

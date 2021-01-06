@@ -12,7 +12,7 @@ class UserTokenService
     /**
      * @param string $token token
      *
-     * @return null
+     * @return UserModel|null
      */
     public function getUserByToken(string $token)
     {
@@ -21,7 +21,7 @@ class UserTokenService
             $userTokenModel = UserTokenModel::query()->where('token', $token)->firstOrFail();
             $userTokenModel->touch();
 
-            return $userTokenModel->user();
+            return $userTokenModel->user;
         } catch (ModelNotFoundException $exception) {
             return null;
         }
