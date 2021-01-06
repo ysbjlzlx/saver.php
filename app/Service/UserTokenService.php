@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 class UserTokenService
 {
     /**
-     * @param  string  $token
+     * @param string $token token
+     *
      * @return null
      */
     public function getUserByToken(string $token)
@@ -16,9 +17,10 @@ class UserTokenService
         $userTokenModel = null;
         try {
             $userTokenModel = UserTokenModel::query()->where('token', $token)->firstOrFail();
+
+            return $userTokenModel->user();
         } catch (ModelNotFoundException $exception) {
             return null;
         }
-
     }
 }
