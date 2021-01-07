@@ -9,5 +9,5 @@ use Illuminate\Database\Capsule\Manager as Capsule;
  */
 $config = require __DIR__.'/../config/database.php';
 $capsule = new Capsule();
-$capsule->addConnection($config['mysql']);
+$capsule->addConnection($config);
 $capsule->bootEloquent();

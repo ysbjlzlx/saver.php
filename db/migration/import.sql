@@ -13,6 +13,7 @@ CREATE TABLE `user`
     `phone_verified_at` DATETIME      DEFAULT '0000-00-00 00:00:00' NOT NULL COMMENT '手机验证时间',
     `email`             VARCHAR(255)  DEFAULT ''                    NOT NULL COMMENT '邮箱',
     `email_verified_at` DATETIME      DEFAULT '0000-00-00 00:00:00' NOT NULL COMMENT '邮箱验证时间',
+    `totp_secret`       VARCHAR(128)  DEFAULT ''                    NOT NULL COMMENT 'TOTP',
     `extra`             VARCHAR(2048) DEFAULT ''                    NOT NULL COMMENT '用户字段补全',
     `remark`            VARCHAR(2048) DEFAULT ''                    NOT NULL COMMENT '数据说明性',
     `updated_at`        TIMESTAMP     DEFAULT CURRENT_TIMESTAMP     NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
