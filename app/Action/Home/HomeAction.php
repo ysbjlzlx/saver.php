@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Action;
+namespace App\Action\Home;
 
+use App\Action\Action;
 use App\Model\UserModel;
 use Psr\Http\Message\ResponseInterface;
 
@@ -9,8 +10,6 @@ class HomeAction extends Action
 {
     protected function action(): ResponseInterface
     {
-        $this->logger->info('header', $this->request->getHeaders());
-        $this->logger->info('server', $_SERVER);
         /**
          * @var UserModel
          */

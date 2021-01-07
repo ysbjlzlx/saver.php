@@ -4,7 +4,7 @@ use App\Action\Auth\LoginAction;
 use App\Action\Auth\RegisterAction;
 use App\Action\DestroyAction;
 use App\Action\HealthAction;
-use App\Action\HomeAction;
+use App\Action\Home\HomeAction;
 use App\Action\ShowAction;
 use App\Action\StoreAction;
 use App\Action\SwaggerUiAction;
