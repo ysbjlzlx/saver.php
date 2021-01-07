@@ -7,8 +7,10 @@ use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\Translator;
 use Illuminate\Validation\Factory;
 use League\Flysystem\Filesystem;
+use Monolog\Formatter\JsonFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use Monolog\Processor\UidProcessor;
 use Psr\Container\ContainerInterface;
 use Twig\Environment;
 
@@ -47,8 +49,10 @@ return function (ContainerBuilder $containerBuilder) {
             $name = 'default';
             $path = __DIR__.'/../vars/logs/'.$name.'-'.date('Ymd').'.log';
             $streamHandler = new StreamHandler($path);
+            $streamHandler->setFormatter(new JsonFormatter());
             $logger = new Logger($name);
             $logger->pushHandler($streamHandler);
+            $logger->pushProcessor(new UidProcessor(32));
 
             return $logger;
         },

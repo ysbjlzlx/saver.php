@@ -50,7 +50,7 @@ class LoginAction extends Action
         }
         $loginParams = [
             'ua' => $this->request->getHeaderLine('User-Agent'),
-            'ip' => $this->request->getHeaderLine('Client-Ip'),
+            'ip' => $this->request->getAttribute('ip_address'),
         ];
         $userTokenModel = $this->userTokenService->store($user, $loginParams);
         $data = [

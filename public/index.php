@@ -12,6 +12,8 @@ require __DIR__.'/../vendor/autoload.php';
 define('BASE_DIR', dirname(dirname(__FILE__)));
 define('DATA_DIR', dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'data');
 
+require __DIR__.'/../bootstrap/bootstrap.php';
+
 $containerBuilder = new ContainerBuilder();
 
 // Set up dependencies
@@ -27,12 +29,13 @@ $callableResolver = $app->getCallableResolver();
 /**
  * 初始化数据库.
  */
-require __DIR__.'/../bootstrap/bootstrap.php';
+$database = require __DIR__.'/../bootstrap/database.php';
+$database($app);
 
 /**
  * 加载路由.
  */
-$route = require __DIR__.'/../config/route.php';
+$route = require __DIR__.'/../bootstrap/route.php';
 $route($app);
 
 // Create Request object from globals
@@ -53,6 +56,10 @@ $app->addRoutingMiddleware();
 // Add Error Middleware
 $errorMiddleware = $app->addErrorMiddleware(true, false, false);
 $errorMiddleware->setDefaultErrorHandler($errorHandler);
+
+$checkProxyHeaders = true;
+$trustedProxies = ['10.0.0.1', '10.0.0.2'];
+$app->add(new RKA\Middleware\IpAddress($checkProxyHeaders, $trustedProxies));
 
 // Run App & Emit Response
 $response = $app->handle($request);

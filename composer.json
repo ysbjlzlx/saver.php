@@ -12,6 +12,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "ext-json": "*",
+        "akrabat/ip-address-middleware": "^2.0",
         "illuminate/database": "^7.30",
         "illuminate/validation": "^7.30",
         "league/flysystem": "^2.0",
