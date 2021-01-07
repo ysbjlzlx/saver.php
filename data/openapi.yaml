@@ -10,8 +10,10 @@ tags:
     description: 用户验证
   - name: home
     description: 登录验证
-  - name: acount
+  - name: account
     description: 用户账号相关操作
+  - name: upload
+    description: 资料上传接口
 paths:
   /api/auth/register:
     post:
@@ -147,9 +149,11 @@ paths:
                 type: object
 
 
-  /api/store:
+  /api/upload/store:
     post:
       summary: 上传资料
+      tags:
+        - upload
       parameters:
         - name: extension
           in: query
@@ -180,9 +184,11 @@ paths:
                     type: string
         422:
           $ref: '#/components/responses/422'
-  /api/show:
+  /api/upload/show:
     get:
       summary: 读取资料
+      tags:
+        - upload
       parameters:
         - name: key
           in: query

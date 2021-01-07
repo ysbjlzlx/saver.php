@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Action;
+namespace App\Action\Upload;
 
+use App\Action\Action;
 use Illuminate\Validation\Factory;
 use Illuminate\Validation\ValidationException;
 use League\Flysystem\Filesystem;
@@ -30,7 +31,8 @@ class StoreAction extends Action
     protected function action(): ResponseInterface
     {
         $rules = [
-            'extension' => 'required|string',
+            'type' => 'required|string|in:file,form',
+            'extension' => 'required|string|in:json',
         ];
         $this->validator->validate($this->request->getQueryParams(), $rules);
 
