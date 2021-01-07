@@ -44,7 +44,7 @@ class LoginAction extends Action
         $validator = $this->validator->make($this->request->getParsedBody(), $rules, $messages);
         $params = $validator->validated();
 
-        $user = $this->userService->getUserByUsernameAndPassword($params['username'], $params['password']);
+        $user = $this->userService->getUserByUsername($params['username'], $params['password']);
         if (is_null($user)) {
             $validator->errors()->add('username', '用户名或密码错误');
             throw new ValidationException($validator);

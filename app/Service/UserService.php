@@ -47,7 +47,7 @@ class UserService
      *
      * @return Builder|Model|UserModel|null
      */
-    public function getUserByUsernameAndPassword(string $username, ?string $password = null, ?string $otp = null)
+    public function getUserByUsername(string $username, ?string $password = null, ?string $otp = null)
     {
         $user = null;
         try {
