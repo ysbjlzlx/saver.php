@@ -9,8 +9,8 @@ return function (App $app) {
     /**
      * 初始化数据库.
      */
-    $config = require __DIR__.'/../config/database.php';
+    $config_database = $app->getContainer()->get('config')['database'] ?? [];
     $capsule = new Capsule();
-    $capsule->addConnection($config['mysql']);
+    $capsule->addConnection($config_database);
     $capsule->bootEloquent();
 };

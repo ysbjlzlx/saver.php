@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Dotenv\Dotenv;
 
 /**
- * 加载配置.
+ * 加载环境变量配置.
  */
 $dotenv = Dotenv::createImmutable(dirname(dirname(__FILE__)));
 $dotenv->load();

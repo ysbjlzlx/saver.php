@@ -16,6 +16,11 @@ require __DIR__.'/../bootstrap/bootstrap.php';
 
 $containerBuilder = new ContainerBuilder();
 
+$config = require __DIR__.'/../bootstrap/config.php';
+$config($containerBuilder);
+
+
+
 // Set up dependencies
 $dependencies = require __DIR__.'/../bootstrap/dependencies.php';
 $dependencies($containerBuilder);
