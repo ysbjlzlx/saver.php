@@ -56,5 +56,9 @@ return function (ContainerBuilder $containerBuilder) {
 
             return $logger;
         },
+        /*
+         * 缓存
+         */
+
     ]);
 };

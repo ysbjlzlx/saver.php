@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class UserModel.
  *
- * @property int    $id       编号
- * @property string $username 用户名
- * @property string $password 密码
+ * @property int    $id          编号
+ * @property string $username    用户名
+ * @property string $password    密码
+ * @property string $totp_secret secret
  */
 class UserModel extends Model
 {
@@ -19,7 +20,7 @@ class UserModel extends Model
      *
      * @var string[]
      */
-    protected $hidden = ['password'];
+    protected $hidden = ['password', 'totp_secret'];
 
     public function tokens()
     {

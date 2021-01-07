@@ -23,6 +23,7 @@
         "slim/slim": "^4.7",
         "slim/twig-view": "^3.2",
         "spomky-labs/otphp": "^10.0",
+        "symfony/cache": "^5.2",
         "vlucas/phpdotenv": "^5.2"
     },
     "require-dev": {
