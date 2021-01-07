@@ -43,7 +43,7 @@ class DestroyAccountAction extends Action
             $validator->errors()->add('password', '密码错误');
             throw new ValidationException($validator);
         }
-        /**
+        /*
          * 销户
          */
         $this->userService->forceDelete($userModel);
