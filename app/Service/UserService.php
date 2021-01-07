@@ -44,7 +44,7 @@ class UserService
      * @param string      $username 用户名
      * @param string|null $password 密码
      *
-     * @return Builder|Model|null|UserModel
+     * @return Builder|Model|UserModel|null
      */
     public function getUserByUsernameAndPassword(string $username, string $password = null)
     {

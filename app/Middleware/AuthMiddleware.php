@@ -56,6 +56,7 @@ class AuthMiddleware implements MiddlewareInterface
             $validator->errors()->add('token', 'Token is invalid');
             throw new ValidationException($validator);
         }
+        $request = $request->withAttribute('token', $params['token']);
         $request = $request->withAttribute('user', $user);
 
         return $handler->handle($request);

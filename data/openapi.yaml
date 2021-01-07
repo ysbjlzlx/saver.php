@@ -80,6 +80,29 @@ paths:
                     type: string
         422:
           $ref: '#/components/responses/422'
+  /api/auth/logout:
+    post:
+      summary: 退出登录
+      tags:
+        - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - token
+              properties:
+                token:
+                  type: string
+      responses:
+        200:
+          description: 成功退出登录
+        422:
+          $ref: '#/components/responses/422'
+        500:
+          $ref: '#/components/responses/500'
+
   /api/home:
     get:
       summary: 登录验证
@@ -165,4 +188,11 @@ components:
               type: array
               items:
                 type: string
+    500:
+      description: 服务器错误
+      content:
+        text/html:
+          schema:
+            type: string
+
 

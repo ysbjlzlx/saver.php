@@ -9,14 +9,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class UserTokenModel.
  *
- * @property int    $id
- * @property int    $user_id
- * @property string $token
- * @property string $ua
- * @property string $ip
- * @property string $longitude
- * @property string $latitude
- *
+ * @property int       $id
+ * @property int       $user_id
+ * @property string    $token
+ * @property string    $ua
+ * @property string    $ip
+ * @property string    $longitude
+ * @property string    $latitude
  * @property UserModel $user
  */
 class UserTokenModel extends Model

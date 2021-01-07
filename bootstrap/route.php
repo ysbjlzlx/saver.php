@@ -1,6 +1,7 @@
 <?php
 
 use App\Action\Auth\LoginAction;
+use App\Action\Auth\LogoutAction;
 use App\Action\Auth\RegisterAction;
 use App\Action\DestroyAction;
 use App\Action\HealthAction;
@@ -22,6 +23,7 @@ return function (App $app) {
     // auth
     $app->post('/api/auth/register', RegisterAction::class);
     $app->post('/api/auth/login', LoginAction::class);
+    $app->post('/api/auth/logout', LogoutAction::class)->add(AuthMiddleware::class);
     // home
     $app->get('/api/home', HomeAction::class)->add(AuthMiddleware::class);
 };
