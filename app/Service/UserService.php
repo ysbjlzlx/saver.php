@@ -51,7 +51,7 @@ class UserService
         $user = null;
         try {
             $user = UserModel::query()->where('username', $username)->firstOrFail();
-            if (!is_null($password) && !password_verify($password, $user->password)) {
+            if (!is_null($password) && !$this->checkPassword($user, $password)) {
                 $user = null;
             }
         } catch (ModelNotFoundException $exception) {
@@ -73,5 +73,29 @@ class UserService
         } catch (ModelNotFoundException $exception) {
             return null;
         }
+    }
+
+    /**
+     * @param UserModel|Model $userModel 用户
+     * @param string          $password  密码
+     *
+     * @return bool true 通过
+     */
+    public function checkPassword(UserModel $userModel, string $password): bool
+    {
+        return password_verify($password, $userModel->password);
+    }
+
+    /**
+     * 用户销户.
+     *
+     * @throws \Exception
+     */
+    public function forceDelete(UserModel $userModel): bool
+    {
+        $userModel->tokens()->forceDelete();
+        $userModel->delete();
+
+        return true;
     }
 }

@@ -20,4 +20,9 @@ class UserModel extends Model
      * @var string[]
      */
     protected $hidden = ['password'];
+
+    public function tokens()
+    {
+        return $this->hasMany(UserTokenModel::class, 'user_id');
+    }
 }

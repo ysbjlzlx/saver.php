@@ -10,6 +10,8 @@ tags:
     description: 用户验证
   - name: home
     description: 登录验证
+  - name: acount
+    description: 用户账号相关操作
 paths:
   /api/auth/register:
     post:
@@ -102,6 +104,28 @@ paths:
           $ref: '#/components/responses/422'
         500:
           $ref: '#/components/responses/500'
+
+  /api/account/delete:
+    post:
+      summary: 销户
+      tags:
+        - account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - token
+                - password
+              properties:
+                token:
+                  type: string
+                password:
+                  type: string
+      responses:
+        200:
+          description: 销户成功
 
   /api/home:
     get:

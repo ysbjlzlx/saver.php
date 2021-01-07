@@ -1,5 +1,6 @@
 <?php
 
+use App\Action\Account\DestroyAccountAction;
 use App\Action\Auth\LoginAction;
 use App\Action\Auth\LogoutAction;
 use App\Action\Auth\RegisterAction;
@@ -12,6 +13,7 @@ use App\Action\SwaggerUiAction;
 use App\Action\UpdateAction;
 use App\Middleware\AuthMiddleware;
 use Slim\App;
+use Slim\Routing\RouteCollectorProxy;
 
 return function (App $app) {
     $app->any('/health', HealthAction::class);
@@ -26,4 +28,8 @@ return function (App $app) {
     $app->post('/api/auth/logout', LogoutAction::class)->add(AuthMiddleware::class);
     // home
     $app->get('/api/home', HomeAction::class)->add(AuthMiddleware::class);
+    // account
+    $app->group('', function (RouteCollectorProxy $group) {
+        $group->post('/api/account/delete', DestroyAccountAction::class);
+    })->add(AuthMiddleware::class);
 };
