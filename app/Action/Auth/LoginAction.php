@@ -38,6 +38,7 @@ class LoginAction extends Action
         $rules = [
             'username' => 'required|string|min:3',
             'password' => 'required|string|min:6',
+            'otp' => 'sometimes|string|size:6',
         ];
         $messages = [];
         $validator = $this->validator->make($this->request->getParsedBody(), $rules, $messages);

@@ -43,18 +43,24 @@ class UserService
     /**
      * @param string      $username 用户名
      * @param string|null $password 密码
+     * @param string|null $otp      otp
      *
      * @return Builder|Model|UserModel|null
      */
-    public function getUserByUsernameAndPassword(string $username, string $password = null)
+    public function getUserByUsernameAndPassword(string $username, ?string $password = null, ?string $otp = null)
     {
         $user = null;
         try {
             $user = UserModel::query()->where('username', $username)->firstOrFail();
-            if (!is_null($password) && !$this->checkPassword($user, $password)) {
-                $user = null;
-            }
         } catch (ModelNotFoundException $exception) {
+            return null;
+        }
+        // 校验密码
+        if (!empty($password) && !$this->checkPassword($user, $password)) {
+            return null;
+        }
+        // 校验 otp
+        if (!empty($user->totp_secret) && (empty($otp) || !(new TOTPService($user->totp_secret))->verify($otp))) {
             return null;
         }
 
