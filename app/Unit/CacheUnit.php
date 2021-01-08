@@ -34,22 +34,28 @@ class CacheUnit implements CacheInterface
 
     public function clear()
     {
-        return false;
+        return $this->instance->deleteAll();
     }
 
+    /**
+     * @param iterable $keys    传数组类型
+     * @param null     $default 默认值设置不起作用
+     *
+     * @return array|iterable|mixed[]
+     */
     public function getMultiple($keys, $default = null)
     {
-        return false;
+        return $this->instance->fetchMultiple((array) $keys);
     }
 
     public function setMultiple($values, $ttl = null)
     {
-        return false;
+        return $this->instance->saveMultiple((array) $values, $ttl);
     }
 
     public function deleteMultiple($keys)
     {
-        return false;
+        return $this->instance->deleteMultiple((array) $keys);
     }
 
     public function has($key)
