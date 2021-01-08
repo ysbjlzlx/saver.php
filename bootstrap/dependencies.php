@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
+use App\Unit\CacheUnit;
 use DI\ContainerBuilder;
+use Doctrine\Common\Cache\FilesystemCache;
 use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\Translator;
 use Illuminate\Validation\Factory;
@@ -12,6 +14,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\UidProcessor;
 use Psr\Container\ContainerInterface;
+use Psr\SimpleCache\CacheInterface;
 use Twig\Environment;
 
 return function (ContainerBuilder $containerBuilder) {
@@ -59,6 +62,8 @@ return function (ContainerBuilder $containerBuilder) {
         /*
          * 缓存
          */
-
+        CacheInterface::class => function (ContainerInterface $container) {
+            return new CacheUnit(new FilesystemCache(__DIR__.'/../vars/cache'));
+        },
     ]);
 };
