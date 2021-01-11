@@ -129,6 +129,39 @@ paths:
         200:
           description: 销户成功
 
+  /api/data-dict/index:
+    get:
+      description: 数据字典列表
+      parameters:
+        - name: limit
+          description: 获取数据条数
+          in: query
+          schema:
+            type: integer
+            default: 20
+            example: 20
+        - name: offset
+          description: 跳过数据条目
+          in: query
+          schema:
+            type: integer
+            default: 0
+            example: 0
+      responses:
+        200:
+          description: 正常响应
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: 总数据
+                  rows:
+                    type: array
+                    description: 数据
+
   /api/home:
     get:
       summary: 登录验证

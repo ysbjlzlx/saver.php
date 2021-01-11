@@ -38,4 +38,8 @@ return function (App $app) {
      */
     $app->post('/api/upload/store', StoreAction::class);
     $app->get('/api/upload/show', ShowAction::class);
+    /*
+     * data dict
+     */
+    $app->get('/api/data-dict/index', \App\Action\DataDict\IndexAction::class);
 };
