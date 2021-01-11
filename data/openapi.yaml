@@ -134,6 +134,8 @@ paths:
   /api/data-dict/index:
     get:
       description: 数据字典列表
+      tags:
+        - data-dict
       parameters:
         - name: limit
           description: 获取数据条数
@@ -188,6 +190,40 @@ paths:
                   type: string
                 memo:
                   type: string
+      responses:
+        200:
+          description: 正常响应
+          content:
+            application/json:
+              schema:
+                type: object
+  /api/data-dict/update:
+    put:
+      description: 更新字典
+      tags:
+        - data-dict
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+                - version
+              properties:
+                id:
+                  type: integer
+                version:
+                  type: integer
+                name:
+                  type: string
+                key:
+                  type: string
+                value:
+                  type: string
+                memo:
+                  type: string
+
       responses:
         200:
           description: 正常响应

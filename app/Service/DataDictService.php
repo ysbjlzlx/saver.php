@@ -87,6 +87,18 @@ class DataDictService
         return DataDictModel::query()->where('key', $key)->exists();
     }
 
+    public function existsById(int $id, ?int $version = null)
+    {
+        $where = [
+            'id' => $id,
+        ];
+        if (!is_null($version)) {
+            $where['version'] = $version;
+        }
+
+        return DataDictModel::query()->where($where)->exists();
+    }
+
     private function getCacheKey(string $key)
     {
         return 'data_dict:key:'.$key;

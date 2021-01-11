@@ -43,4 +43,5 @@ return function (App $app) {
      */
     $app->get('/api/data-dict/index', \App\Action\DataDict\IndexAction::class);
     $app->post('/api/data-dict/store', \App\Action\DataDict\StoreAction::class);
+    $app->put('/api/data-dict/update',\App\Action\DataDict\UpdateAction::class);
 };
