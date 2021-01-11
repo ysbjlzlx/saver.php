@@ -14,6 +14,8 @@ tags:
     description: 用户账号相关操作
   - name: upload
     description: 资料上传接口
+  - name: data-dict
+    description: 数据字典
 paths:
   /api/auth/register:
     post:
@@ -161,6 +163,38 @@ paths:
                   rows:
                     type: array
                     description: 数据
+  /api/data-dict/store:
+    post:
+      description: 添加数据字典
+      tags:
+        - data-dict
+      requestBody:
+        description: 数据
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - key
+                - value
+                - memo
+              properties:
+                name:
+                  type: string
+                key:
+                  type: string
+                value:
+                  type: string
+                memo:
+                  type: string
+      responses:
+        200:
+          description: 正常响应
+          content:
+            application/json:
+              schema:
+                type: object
 
   /api/home:
     get:

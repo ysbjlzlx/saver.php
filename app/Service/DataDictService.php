@@ -82,7 +82,7 @@ class DataDictService
      *
      * @param string $key key
      */
-    private function exists(string $key): bool
+    public function exists(string $key): bool
     {
         return DataDictModel::query()->where('key', $key)->exists();
     }
