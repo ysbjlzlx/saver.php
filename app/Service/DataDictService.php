@@ -53,7 +53,7 @@ class DataDictService
             return $this->cache->get($key);
         }
         $row = DataDictModel::query()->where('key', $key)->first();
-        $this->cache->set($this->getCacheKey($key), $row);
+        $this->cache->set($this->getCacheKey($key), $row, 5 * 60);
 
         return $row;
     }
