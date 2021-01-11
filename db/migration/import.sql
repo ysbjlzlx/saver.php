@@ -50,3 +50,23 @@ CREATE TABLE `user_token`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = `utf8mb4`
   COLLATE = `utf8mb4_unicode_ci` COMMENT ='用户 Token 表';
+-- 删除表
+DROP TABLE IF EXISTS `data_dict`;
+-- 创建表
+CREATE TABLE `data_dict`
+(
+    `id`         BIGINT UNSIGNED AUTO_INCREMENT          NOT NULL COMMENT '主键',
+    `name`       VARCHAR(128)  DEFAULT ''                NOT NULL COMMENT '名称',
+    `key`        VARCHAR(128)  DEFAULT ''                NOT NULL COMMENT 'key',
+    `value`      VARCHAR(4096) DEFAULT ''                NOT NULL COMMENT 'value',
+    `memo`       VARCHAR(128)  DEFAULT ''                NOT NULL COMMENT '备注',
+    `version`    INT UNSIGNED  DEFAULT 0                 NOT NULL COMMENT '乐观锁',
+    `updated_at` TIMESTAMP     DEFAULT CURRENT_TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `created_at` TIMESTAMP     DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '创建时间',
+    PRIMARY KEY (`id`),
+    CONSTRAINT `uk_key` UNIQUE (`key`),
+    INDEX `idx_updated_at` (`updated_at`),
+    INDEX `idx_created_at` (`created_at`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = `utf8mb4`
+  COLLATE = `utf8mb4_unicode_ci` COMMENT ='数据字典表';
