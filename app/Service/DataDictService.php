@@ -17,6 +17,15 @@ class DataDictService
         $this->cache = $cache;
     }
 
+    public function index(int $limit = 20, $offset = 0)
+    {
+        $model = DataDictModel::query();
+        $total = $model->count();
+        $rows = $model->take($limit)->skip($offset)->get();
+
+        return ['total' => $total, 'rows' => $rows];
+    }
+
     /**
      * 新增数据字典配置.
      *
