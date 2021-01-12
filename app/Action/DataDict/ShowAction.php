@@ -5,6 +5,7 @@ namespace App\Action\DataDict;
 use App\Action\Action;
 use App\Service\DataDictService;
 use Illuminate\Validation\Factory;
+use Illuminate\Validation\ValidationException;
 use Monolog\Logger;
 use Psr\Http\Message\ResponseInterface;
 
@@ -21,6 +22,9 @@ class ShowAction extends Action
         $this->dataDictService = $dataDictService;
     }
 
+    /**
+     * @throws ValidationException
+     */
     protected function action(): ResponseInterface
     {
         $data = $this->request->getQueryParams();
