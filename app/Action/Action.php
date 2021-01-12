@@ -12,10 +12,14 @@ use Slim\Http\ServerRequest;
 abstract class Action
 {
     /**
+     * @phpstan-template ServerRequest of ServerRequestInterface
+     *
      * @var ServerRequest
      */
     protected $request;
     /**
+     * @phpstan-template Response of ResponseInterface
+     *
      * @var Response
      */
     protected $response;
