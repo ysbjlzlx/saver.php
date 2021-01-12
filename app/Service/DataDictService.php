@@ -3,6 +3,9 @@
 namespace App\Service;
 
 use App\Model\DataDictModel;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Psr\SimpleCache\CacheInterface;
 
 class DataDictService
@@ -31,9 +34,9 @@ class DataDictService
      *
      * @param array $data 配置
      *
-     * @return bool
+     * @return bool 添加结果
      */
-    public function store(array $data)
+    public function store(array $data): bool
     {
         if ($this->exists($data['key'])) {
             return false;
@@ -47,6 +50,11 @@ class DataDictService
         return $dataDictModel->save();
     }
 
+    /**
+     * @param int $id id
+     *
+     * @return Builder|Builder[]|Collection|Model|null
+     */
     public function find(int $id)
     {
         return DataDictModel::query()->find($id);
@@ -104,7 +112,12 @@ class DataDictService
         return DataDictModel::query()->where($where)->exists();
     }
 
-    private function getCacheKey(string $key)
+    /**
+     * @param string $key key
+     *
+     * @return string 缓存 key
+     */
+    private function getCacheKey(string $key): string
     {
         return 'data_dict:key:'.$key;
     }

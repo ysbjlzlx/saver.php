@@ -1,5 +1,7 @@
 parameters:
   level: 6
+  checkMissingIterableValueType: false
+  checkGenericClassInNonGenericObjectType: false
   ignoreErrors:
     # 忽略操作 Model 类时的错误
     - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Builder\|Illuminate\\Database\\Eloquent\\Model::\$[a-zA-Z0-9\\_]+#'
