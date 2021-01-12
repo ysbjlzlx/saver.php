@@ -47,6 +47,11 @@ class DataDictService
         return $dataDictModel->save();
     }
 
+    public function find(int $id)
+    {
+        return DataDictModel::query()->find($id);
+    }
+
     public function show(string $key)
     {
         if ($this->cache->has($this->getCacheKey($key))) {
