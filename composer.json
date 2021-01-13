@@ -14,8 +14,9 @@
         "ext-json": "*",
         "akrabat/ip-address-middleware": "^2.0",
         "doctrine/cache": "^1.10",
-        "illuminate/database": "^7.30",
-        "illuminate/validation": "^7.30",
+        "illuminate/contracts": "^8.22",
+        "illuminate/database": "^8.22",
+        "illuminate/validation": "^8.22",
         "league/flysystem": "^2.0",
         "monolog/monolog": "^2.2",
         "php-di/php-di": "^6.3",
@@ -25,7 +26,6 @@
         "slim/slim": "^4.7",
         "slim/twig-view": "^3.2",
         "spomky-labs/otphp": "^10.0",
-        "symfony/cache": "^5.2",
         "vlucas/phpdotenv": "^5.2"
     },
     "require-dev": {
