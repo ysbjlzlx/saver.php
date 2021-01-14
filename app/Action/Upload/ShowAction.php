@@ -5,6 +5,7 @@ namespace App\Action\Upload;
 use App\Action\Action;
 use Illuminate\Validation\Factory;
 use League\Flysystem\Filesystem;
+use League\Flysystem\FilesystemException;
 use League\MimeTypeDetection\FinfoMimeTypeDetector;
 use Monolog\Logger;
 use Psr\Http\Message\ResponseInterface;
@@ -27,6 +28,9 @@ class ShowAction extends Action
         $this->detector = new FinfoMimeTypeDetector();
     }
 
+    /**
+     * @throws FilesystemException
+     */
     protected function action(): ResponseInterface
     {
         $key = $this->request->getQueryParam('key');

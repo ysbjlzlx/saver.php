@@ -6,6 +6,9 @@ use Illuminate\Validation\Factory;
 use Monolog\Logger;
 use Psr\Http\Message\ResponseInterface;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class SwaggerUiAction extends Action
 {
@@ -20,6 +23,11 @@ class SwaggerUiAction extends Action
         $this->twig = $twig;
     }
 
+    /**
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
     protected function action(): ResponseInterface
     {
         $html = $this->twig->render('swagger-ui.html');

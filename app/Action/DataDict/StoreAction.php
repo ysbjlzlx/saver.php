@@ -22,6 +22,10 @@ class StoreAction extends Action
         $this->dataDictService = $dataDictService;
     }
 
+    /**
+     * @return ResponseInterface
+     * @throws ValidationException
+     */
     protected function action(): ResponseInterface
     {
         $data = $this->request->getParsedBody();

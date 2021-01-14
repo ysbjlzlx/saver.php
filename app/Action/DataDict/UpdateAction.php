@@ -11,6 +11,9 @@ use Psr\Http\Message\ResponseInterface;
 
 class UpdateAction extends Action
 {
+    /**
+     * @var DataDictService
+     */
     private $dataDictService;
 
     public function __construct(Logger $logger, Factory $validator, DataDictService $dataDictService)
@@ -19,6 +22,9 @@ class UpdateAction extends Action
         $this->dataDictService = $dataDictService;
     }
 
+    /**
+     * @throws ValidationException
+     */
     protected function action(): ResponseInterface
     {
         $data = $this->request->getParsedBody();
