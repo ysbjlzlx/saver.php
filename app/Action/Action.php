@@ -13,12 +13,14 @@ abstract class Action
 {
     /**
      * @phpstan-template ServerRequest of ServerRequestInterface
+     * @phpstan-var ServerRequest
      *
      * @var ServerRequest
      */
     protected $request;
     /**
      * @phpstan-template Response of ResponseInterface
+     * @phpstan-var Response
      *
      * @var Response
      */
