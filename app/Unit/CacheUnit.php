@@ -31,12 +31,12 @@ class CacheUnit implements CacheInterface
         return $this->instance->save($key, $value, $ttl);
     }
 
-    public function delete($key)
+    public function delete($key): bool
     {
         return $this->instance->delete($key);
     }
 
-    public function clear()
+    public function clear(): bool
     {
         return $this->instance->deleteAll();
     }

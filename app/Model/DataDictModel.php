@@ -17,4 +17,22 @@ use Illuminate\Database\Eloquent\Model;
 class DataDictModel extends Model
 {
     protected $table = 'data_dict';
+
+    /**
+     * @param mixed $value 序列化 value
+     */
+    public function setValueAttribute($value): void
+    {
+        $this->attributes['value'] = serialize($value);
+    }
+
+    /**
+     * @param string $value 反序列化 value
+     *
+     * @return mixed
+     */
+    public function getValueAttribute(string $value)
+    {
+        return unserialize($value);
+    }
 }
