@@ -7,8 +7,8 @@ use Illuminate\Validation\Factory;
 use League\Flysystem\Filesystem;
 use League\Flysystem\FilesystemException;
 use League\MimeTypeDetection\FinfoMimeTypeDetector;
-use Monolog\Logger;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 
 class ShowAction extends Action
 {
@@ -21,7 +21,7 @@ class ShowAction extends Action
      */
     private $detector;
 
-    public function __construct(Logger $logger, Factory $validator, Filesystem $filesystem)
+    public function __construct(LoggerInterface $logger, Factory $validator, Filesystem $filesystem)
     {
         parent::__construct($logger, $validator);
         $this->filesystem = $filesystem;

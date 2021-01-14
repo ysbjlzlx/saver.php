@@ -14,6 +14,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\UidProcessor;
 use Psr\Container\ContainerInterface;
+use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
 use Twig\Environment;
 
@@ -46,9 +47,9 @@ return function (ContainerBuilder $containerBuilder) {
             return new Factory($translator);
         },
         /*
-         * Monolog 日志
+         * 日志
          */
-        Logger::class => function (ContainerInterface $container) {
+        LoggerInterface::class => function (ContainerInterface $container) {
             $name = 'default';
             $path = __DIR__.'/../vars/logs/'.$name.'-'.date('Ymd').'.log';
             $streamHandler = new StreamHandler($path);

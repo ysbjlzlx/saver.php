@@ -7,8 +7,8 @@ use App\Service\UserService;
 use App\Service\UserTokenService;
 use Illuminate\Validation\Factory;
 use Illuminate\Validation\ValidationException;
-use Monolog\Logger;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 
 class LoginAction extends Action
 {
@@ -21,7 +21,7 @@ class LoginAction extends Action
      */
     private $userTokenService;
 
-    public function __construct(Logger $logger, Factory $validator, UserService $userService, UserTokenService $userTokenService)
+    public function __construct(LoggerInterface $logger, Factory $validator, UserService $userService, UserTokenService $userTokenService)
     {
         parent::__construct($logger, $validator);
         $this->userService = $userService;

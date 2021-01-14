@@ -5,8 +5,8 @@ namespace App\Action\Auth;
 use App\Action\Action;
 use App\Service\UserTokenService;
 use Illuminate\Validation\Factory;
-use Monolog\Logger;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 
 class LogoutAction extends Action
 {
@@ -15,7 +15,7 @@ class LogoutAction extends Action
      */
     private $userTokenService;
 
-    public function __construct(Logger $logger, Factory $validator, UserTokenService $userTokenService)
+    public function __construct(LoggerInterface $logger, Factory $validator, UserTokenService $userTokenService)
     {
         parent::__construct($logger, $validator);
         $this->userTokenService = $userTokenService;

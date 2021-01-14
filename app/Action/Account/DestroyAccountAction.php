@@ -6,8 +6,8 @@ use App\Action\Action;
 use App\Service\UserService;
 use Illuminate\Validation\Factory;
 use Illuminate\Validation\ValidationException;
-use Monolog\Logger;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class DestroyAccountAction.
@@ -19,7 +19,7 @@ class DestroyAccountAction extends Action
      */
     private $userService;
 
-    public function __construct(Logger $logger, Factory $validator, UserService $userService)
+    public function __construct(LoggerInterface $logger, Factory $validator, UserService $userService)
     {
         parent::__construct($logger, $validator);
         $this->userService = $userService;

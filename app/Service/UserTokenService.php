@@ -8,12 +8,18 @@ use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Str;
 use Monolog\Logger;
+use Psr\Log\LoggerInterface;
 
 class UserTokenService
 {
+    /**
+     * @phpstan-template Logger implements LoggerInterface
+     *
+     * @var Logger
+     */
     private $logger;
 
-    public function __construct(Logger $logger)
+    public function __construct(LoggerInterface $logger)
     {
         $this->logger = $logger;
     }

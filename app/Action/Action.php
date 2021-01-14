@@ -6,6 +6,7 @@ use Illuminate\Validation\Factory;
 use Monolog\Logger;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Log\LoggerInterface;
 use Slim\Http\Response;
 use Slim\Http\ServerRequest;
 
@@ -28,6 +29,8 @@ abstract class Action
      */
     protected $args;
     /**
+     * @phpstan-template Logger implements LoggerInterface
+     *
      * @var Logger
      */
     protected $logger;
@@ -36,7 +39,7 @@ abstract class Action
      */
     protected $validator;
 
-    public function __construct(Logger $logger, Factory $validator)
+    public function __construct(LoggerInterface $logger, Factory $validator)
     {
         $this->logger = $logger;
         $this->validator = $validator;

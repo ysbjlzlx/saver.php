@@ -6,8 +6,8 @@ use App\Action\Action;
 use App\Service\DataDictService;
 use Illuminate\Validation\Factory;
 use Illuminate\Validation\ValidationException;
-use Monolog\Logger;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 
 class UpdateAction extends Action
 {
@@ -16,7 +16,7 @@ class UpdateAction extends Action
      */
     private $dataDictService;
 
-    public function __construct(Logger $logger, Factory $validator, DataDictService $dataDictService)
+    public function __construct(LoggerInterface $logger, Factory $validator, DataDictService $dataDictService)
     {
         parent::__construct($logger, $validator);
         $this->dataDictService = $dataDictService;
