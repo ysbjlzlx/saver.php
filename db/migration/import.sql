@@ -70,3 +70,39 @@ CREATE TABLE `data_dict`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = `utf8mb4`
   COLLATE = `utf8mb4_unicode_ci` COMMENT ='数据字典表';
+-- 删除表
+DROP TABLE IF EXISTS `ad_publisher`;
+-- 创建表
+CREATE TABLE `ad_publisher`
+(
+    `id`                BIGINT UNSIGNED AUTO_INCREMENT             NOT NULL COMMENT '主键',
+    `username`          VARCHAR(16)  DEFAULT ''                    NOT NULL COMMENT '',
+    `password`          VARCHAR(128) DEFAULT ''                    NOT NULL COMMENT '',
+    `email`             VARCHAR(255) DEFAULT ''                    NOT NULL COMMENT '邮箱',
+    `email_verified_at` DATETIME     DEFAULT '0000-00-00 00:00:00' NOT NULL COMMENT '邮箱验证时间',
+    `updated_at`        TIMESTAMP    DEFAULT CURRENT_TIMESTAMP     NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `created_at`        TIMESTAMP    DEFAULT CURRENT_TIMESTAMP     NOT NULL COMMENT '创建时间',
+    PRIMARY KEY (`id`),
+    INDEX `idx_updated_at` (`updated_at`),
+    INDEX `idx_created_at` (`created_at`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = `utf8mb4`
+  COLLATE = `utf8mb4_unicode_ci` COMMENT ='流量主';
+-- 删除表
+DROP TABLE IF EXISTS `ad_advertiser`;
+-- 创建表
+CREATE TABLE `ad_advertiser`
+(
+    `id`                BIGINT UNSIGNED AUTO_INCREMENT             NOT NULL COMMENT '主键',
+    `username`          VARCHAR(16)  DEFAULT ''                    NOT NULL COMMENT '',
+    `password`          VARCHAR(128) DEFAULT ''                    NOT NULL COMMENT '',
+    `email`             VARCHAR(255) DEFAULT ''                    NOT NULL COMMENT '邮箱',
+    `email_verified_at` DATETIME     DEFAULT '0000-00-00 00:00:00' NOT NULL COMMENT '邮箱验证时间',
+    `updated_at`        TIMESTAMP    DEFAULT CURRENT_TIMESTAMP     NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `created_at`        TIMESTAMP    DEFAULT CURRENT_TIMESTAMP     NOT NULL COMMENT '创建时间',
+    PRIMARY KEY (`id`),
+    INDEX `idx_updated_at` (`updated_at`),
+    INDEX `idx_created_at` (`created_at`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = `utf8mb4`
+  COLLATE = `utf8mb4_unicode_ci` COMMENT ='广告主';
