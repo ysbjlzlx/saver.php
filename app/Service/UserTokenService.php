@@ -5,6 +5,8 @@ namespace App\Service;
 use App\Model\UserModel;
 use App\Model\UserTokenModel;
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Str;
 use Monolog\Logger;
@@ -29,7 +31,7 @@ class UserTokenService
      *
      * @return UserModel|null
      */
-    public function getUserByToken(string $token)
+    public function getUserByToken(string $token): ?UserModel
     {
         $userTokenModel = null;
         try {
@@ -43,12 +45,12 @@ class UserTokenService
     }
 
     /**
-     * @param UserModel    $userModel 用户
-     * @param array<mixed> $params    登录参数
+     * @param UserModel|Model|Builder $userModel 用户
+     * @param array<mixed>            $params    登录参数
      *
      * @return UserTokenModel 登录记录
      */
-    public function store(UserModel $userModel, array $params): UserTokenModel
+    public function store($userModel, array $params): UserTokenModel
     {
         $userTokenModel = new UserTokenModel();
         $userTokenModel->user_id = $userModel->id;
@@ -95,11 +97,11 @@ class UserTokenService
     }
 
     /**
-     * @param UserModel|null $userModel 用户
+     * @param UserModel|Model|Builder|null $userModel 用户
      *
      * @return string token
      */
-    private function generateToken(UserModel $userModel = null): string
+    private function generateToken($userModel = null): string
     {
         $id = is_null($userModel) ? '' : $userModel->id;
         $current = microtime(true);

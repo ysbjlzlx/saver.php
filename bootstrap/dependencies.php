@@ -2,12 +2,15 @@
 
 declare(strict_types=1);
 
+use App\Event\UserLoginEvent;
+use App\Listener\LogUserLoginEventListener;
 use App\Unit\CacheUnit;
 use DI\ContainerBuilder;
 use Doctrine\Common\Cache\FilesystemCache;
 use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\Translator;
 use Illuminate\Validation\Factory;
+use League\Event\EventDispatcher;
 use League\Flysystem\Filesystem;
 use Monolog\Formatter\JsonFormatter;
 use Monolog\Handler\StreamHandler;
@@ -65,6 +68,16 @@ return function (ContainerBuilder $containerBuilder) {
          */
         CacheInterface::class => function (ContainerInterface $container) {
             return new CacheUnit(new FilesystemCache(__DIR__.'/../vars/cache'));
+        },
+        /*
+         * 事件
+         */
+        EventDispatcher::class => function (ContainerInterface $container) {
+            $logger = $container->get(LoggerInterface::class);
+            $eventDispatcher = new EventDispatcher();
+            $eventDispatcher->subscribeTo(UserLoginEvent::class, new LogUserLoginEventListener($logger));
+
+            return $eventDispatcher;
         },
     ]);
 };

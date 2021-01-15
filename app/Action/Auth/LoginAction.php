@@ -3,10 +3,12 @@
 namespace App\Action\Auth;
 
 use App\Action\Action;
+use App\Event\UserLoginEvent;
 use App\Service\UserService;
 use App\Service\UserTokenService;
 use Illuminate\Validation\Factory;
 use Illuminate\Validation\ValidationException;
+use League\Event\EventDispatcher;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
@@ -20,12 +22,18 @@ class LoginAction extends Action
      * @var UserTokenService
      */
     private $userTokenService;
+    private $eventDispatcher;
 
-    public function __construct(LoggerInterface $logger, Factory $validator, UserService $userService, UserTokenService $userTokenService)
+    public function __construct(LoggerInterface $logger,
+        Factory $validator,
+        UserService $userService,
+        UserTokenService $userTokenService,
+        EventDispatcher $eventDispatcher)
     {
         parent::__construct($logger, $validator);
         $this->userService = $userService;
         $this->userTokenService = $userTokenService;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -57,6 +65,7 @@ class LoginAction extends Action
         $data = [
             'token' => $userTokenModel->token,
         ];
+        $this->eventDispatcher->dispatch(new UserLoginEvent($user));
 
         return $this->response->withJson($data);
     }

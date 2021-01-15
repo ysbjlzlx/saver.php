@@ -17,6 +17,7 @@
         "illuminate/contracts": "^8.22",
         "illuminate/database": "^8.22",
         "illuminate/validation": "^8.22",
+        "league/event": "^3.0",
         "league/flysystem": "^2.0",
         "monolog/monolog": "^2.2",
         "php-di/php-di": "^6.3",
