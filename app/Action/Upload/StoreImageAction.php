@@ -15,10 +15,6 @@ use Slim\Psr7\UploadedFile;
 class StoreImageAction extends Action
 {
     /**
-     * @var UploadedFile[] 上传文件
-     */
-    private $uploadedFiles;
-    /**
      * @var Filesystem
      */
     private $filesystem;
@@ -35,13 +31,13 @@ class StoreImageAction extends Action
      */
     protected function action(): ResponseInterface
     {
-        $this->uploadedFiles = $this->request->getUploadedFiles();
-        if (empty($this->uploadedFiles)) {
+        $uploadedFiles = $this->request->getUploadedFiles();
+        if (empty($uploadedFiles)) {
             $validator = $this->validator->make([], []);
             $validator->errors()->add('file', '文件不能为空');
             throw new ValidationException($validator);
         }
-        $filenames = $this->save($this->uploadedFiles);
+        $filenames = $this->save($uploadedFiles);
 
         return $this->response->withJson($filenames);
     }
