@@ -53,8 +53,12 @@ class StoreImageAction extends Action
     {
         $filenames = [];
         foreach ($uploadedFiles as $file) {
+            $filename = date('Ymd').'-'.Str::random(32);
             $extension = pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
-            $filename = date('Ymd').'-'.Str::random(32).'.'.$extension;
+            if (!empty($extension)) {
+                $filename = $filename.'.'.$extension;
+            }
+
             $this->filesystem->write($filename, $file->getStream()->getContents());
             $filenames[] = $filename;
         }
