@@ -22,12 +22,13 @@ class LogUserLoginEventListener implements Listener
     }
 
     /**
-     * @phpstan-template UserLoginEvent of object
-     *
-     * @param userLoginEvent $event event
+     * @param object $event event
      */
     public function __invoke(object $event): void
     {
+        if (!$event instanceof UserLoginEvent) {
+            return;
+        }
         $user = $event->getUser();
         $this->logger->info('用户登录', $user->toArray());
     }

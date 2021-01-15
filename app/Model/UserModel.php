@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class UserModel.
@@ -22,7 +23,7 @@ class UserModel extends Model
      */
     protected $hidden = ['password', 'totp_secret'];
 
-    public function tokens()
+    public function tokens(): HasMany
     {
         return $this->hasMany(UserTokenModel::class, 'user_id');
     }
