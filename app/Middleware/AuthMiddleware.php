@@ -12,6 +12,9 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
+/**
+ * Class AuthMiddleware.
+ */
 class AuthMiddleware implements MiddlewareInterface
 {
     /**
