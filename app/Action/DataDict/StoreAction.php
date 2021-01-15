@@ -32,7 +32,7 @@ class StoreAction extends Action
         $rules = [
            'name' => 'required|string',
            'key' => 'required|string',
-           'value' => 'required|string',
+           'value' => 'required',
            'memo' => 'required|string',
        ];
         $validator = $this->validator->make($data, $rules);

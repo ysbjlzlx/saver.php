@@ -32,6 +32,7 @@ return function (Slim\App $app) {
      */
     $app->post('/api/upload/store', App\Action\Upload\StoreAction::class);
     $app->get('/api/upload/show', App\Action\Upload\ShowAction::class);
+    $app->post('/api/upload/image/store', App\Action\Upload\StoreImageAction::class);
 
     /*
      * data dict
