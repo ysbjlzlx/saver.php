@@ -106,3 +106,24 @@ CREATE TABLE `ad_advertiser`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = `utf8mb4`
   COLLATE = `utf8mb4_unicode_ci` COMMENT ='广告主';
+-- 删除表
+DROP TABLE IF EXISTS `log`;
+-- 创建表
+CREATE TABLE `log`
+(
+    `id`         BIGINT UNSIGNED AUTO_INCREMENT         NOT NULL COMMENT '主键',
+    `message`    VARCHAR(255) DEFAULT ''                NOT NULL COMMENT '消息',
+    `context`    TEXT                                   NOT NULL COMMENT '上下文',
+    `level`      INT          DEFAULT 0                 NOT NULL COMMENT '日志级别',
+    `level_name` VARCHAR(255) DEFAULT ''                NOT NULL COMMENT '日志级别',
+    `channel`    VARCHAR(255) DEFAULT ''                NOT NULL COMMENT 'channel',
+    `datetime`   VARCHAR(64)  DEFAULT ''                NOT NULL COMMENT '时间',
+    `extra`      TEXT                                   NOT NULL COMMENT '额外信息',
+    `updated_at` TIMESTAMP    DEFAULT CURRENT_TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `created_at` TIMESTAMP    DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '创建时间',
+    PRIMARY KEY (`id`),
+    INDEX `idx_updated_at` (`updated_at`),
+    INDEX `idx_created_at` (`created_at`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = `utf8mb4`
+  COLLATE = `utf8mb4_unicode_ci` COMMENT ='日志';

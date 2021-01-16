@@ -62,6 +62,7 @@ return function (ContainerBuilder $containerBuilder) {
             $logger->pushHandler($rotatingFileHandler);
             $logger->pushHandler($databaseHandler);
             $logger->pushProcessor(new UidProcessor(32));
+            $logger->pushProcessor(new \Monolog\Processor\IntrospectionProcessor());
 
             return $logger;
         },
