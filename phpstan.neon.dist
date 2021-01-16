@@ -9,7 +9,6 @@ parameters:
     - '#Access to an undefined property App\\Model\\[a-zA-Z0-9\\_]+::\$[a-zA-Z0-9\\_]+#'
   bootstrapFiles:
     - bootstrap/dependencies.php
-    - public/index.php
   paths:
     - app
     - tests

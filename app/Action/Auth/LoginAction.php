@@ -12,6 +12,9 @@ use League\Event\EventDispatcher;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
+/**
+ * Class LoginAction.
+ */
 class LoginAction extends Action
 {
     /**
@@ -22,6 +25,9 @@ class LoginAction extends Action
      * @var UserTokenService
      */
     private $userTokenService;
+    /**
+     * @var EventDispatcher
+     */
     private $eventDispatcher;
 
     public function __construct(LoggerInterface $logger,
