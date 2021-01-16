@@ -11,8 +11,6 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Slim\Http\ServerRequest;
-use Webmozart\Assert\Assert;
 
 /**
  * Class AuthMiddleware.
@@ -44,18 +42,14 @@ class AuthMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        Assert::isInstanceOf($request, ServerRequest::class);
-        $data = [];
-        $data['token'] = $request->getQueryParam('token');
-        if ($request->isPost() || $request->isPut() || $request->isDelete()) {
-            $data['token'] = $request->getParsedBodyParam('token');
-        }
+        $data = [
+            'token' => $request->getParam('token'),
+        ];
 
         $rules = [
             'token' => 'required|string',
         ];
-        $messages = [];
-        $validator = $this->validator->make($data, $rules, $messages);
+        $validator = $this->validator->make($data, $rules);
         $params = $validator->validate();
         $user = $this->userTokenService->getUserByToken($params['token']);
         if (is_null($user)) {
