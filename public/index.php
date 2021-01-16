@@ -7,6 +7,12 @@ use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
 use Slim\Factory\ServerRequestCreatorFactory;
 
+/*
+ * assert 函数第二个参数将抛出一个异常
+ * @see https://www.php.net/manual/zh/info.configuration.php#ini.assert.exception
+ */
+ini_set('assert.exception', '1');
+
 require __DIR__.'/../vendor/autoload.php';
 
 define('BASE_DIR', dirname(dirname(__FILE__)));
@@ -18,8 +24,6 @@ $containerBuilder = new ContainerBuilder();
 
 $config = require __DIR__.'/../bootstrap/config.php';
 $config($containerBuilder);
-
-
 
 // Set up dependencies
 $dependencies = require __DIR__.'/../bootstrap/dependencies.php';
