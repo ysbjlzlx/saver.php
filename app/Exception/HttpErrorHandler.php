@@ -17,6 +17,7 @@ class HttpErrorHandler extends ErrorHandler
          * @var Response
          */
         $response = $this->responseFactory->createResponse();
+        assert($response instanceof Response);
         if ($this->exception instanceof HttpMethodNotAllowedException) {
             return $response->withStatus(405);
         }
