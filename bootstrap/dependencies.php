@@ -13,7 +13,7 @@ use Illuminate\Validation\Factory;
 use League\Event\EventDispatcher;
 use League\Flysystem\Filesystem;
 use Monolog\Formatter\JsonFormatter;
-use Monolog\Handler\StreamHandler;
+use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Monolog\Processor\UidProcessor;
 use Psr\Container\ContainerInterface;
@@ -54,11 +54,13 @@ return function (ContainerBuilder $containerBuilder) {
          */
         LoggerInterface::class => function (ContainerInterface $container) {
             $name = 'default';
-            $path = __DIR__.'/../vars/logs/'.$name.'-'.date('Ymd').'.log';
-            $streamHandler = new StreamHandler($path);
-            $streamHandler->setFormatter(new JsonFormatter());
+            $path = __DIR__.'/../vars/logs/'.$name.'.log';
+            $databaseHandler = new \App\Handler\DatabaseHandler();
+            $rotatingFileHandler = new RotatingFileHandler($path, 30);
+            $rotatingFileHandler->setFormatter(new JsonFormatter());
             $logger = new Logger($name);
-            $logger->pushHandler($streamHandler);
+            $logger->pushHandler($rotatingFileHandler);
+            $logger->pushHandler($databaseHandler);
             $logger->pushProcessor(new UidProcessor(32));
 
             return $logger;

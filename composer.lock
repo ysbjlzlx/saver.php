@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6a373d65c390d0222d78e3c2fe23b101",
+    "content-hash": "94b2dbe91c0cea5ca0948072c1d728f4",
     "packages": [
         {
             "name": "akrabat/ip-address-middleware",
@@ -1533,13 +1533,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/d32c57d8389113742f4a88725a170236470012e2",
                 "reference": "d32c57d8389113742f4a88725a170236470012e2",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "ext-json": "*",
