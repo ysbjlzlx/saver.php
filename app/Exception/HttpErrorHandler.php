@@ -2,6 +2,7 @@
 
 namespace App\Exception;
 
+use AssertionError;
 use Illuminate\Validation\ValidationException;
 use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
@@ -22,6 +23,9 @@ class HttpErrorHandler extends ErrorHandler
             return $response->withJson($this->exception->errors(), 422);
         }
         if ($this->exception instanceof InvalidArgumentException) {
+            return $response->withJson(['assert' => [$this->exception->getMessage()]], 422);
+        }
+        if ($this->exception instanceof AssertionError) {
             return $response->withJson(['assert' => [$this->exception->getMessage()]], 422);
         }
 
