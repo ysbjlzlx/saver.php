@@ -11,6 +11,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Slim\Http\ServerRequest;
 
 /**
  * Class AuthMiddleware.
@@ -42,6 +43,8 @@ class AuthMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        // 主要是为了 PHPStorm 的自动提示
+        assert($request instanceof ServerRequest);
         $data = [
             'token' => $request->getParam('token'),
         ];
