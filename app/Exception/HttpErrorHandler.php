@@ -3,6 +3,7 @@
 namespace App\Exception;
 
 use Illuminate\Validation\ValidationException;
+use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Exception\HttpMethodNotAllowedException;
 use Slim\Handlers\ErrorHandler;
@@ -21,6 +22,9 @@ class HttpErrorHandler extends ErrorHandler
         }
         if ($this->exception instanceof ValidationException) {
             return $response->withJson($this->exception->errors(), 422);
+        }
+        if ($this->exception instanceof InvalidArgumentException) {
+            return $response->withJson(['assert' => [$this->exception->getMessage()]], 422);
         }
 
         return parent::respond();

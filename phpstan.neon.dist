@@ -8,6 +8,7 @@ parameters:
     - '#Call to an undefined method Illuminate\\Database\\Eloquent\\Builder\|Illuminate\\Database\\Eloquent\\Model::[a-zA-Z0-9\\_]+\(\)#'
     - '#Access to an undefined property App\\Model\\[a-zA-Z0-9\\_]+::\$[a-zA-Z0-9\\_]+#'
   bootstrapFiles:
+    - public/index.php
     - bootstrap/dependencies.php
   paths:
     - app
