@@ -13,9 +13,6 @@ class HttpErrorHandler extends ErrorHandler
 {
     protected function respond(): ResponseInterface
     {
-        /**
-         * @var Response
-         */
         $response = $this->responseFactory->createResponse();
         assert($response instanceof Response);
         if ($this->exception instanceof HttpMethodNotAllowedException) {

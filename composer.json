@@ -13,6 +13,7 @@
         "php": "^7.3|^8.0",
         "ext-json": "*",
         "akrabat/ip-address-middleware": "^2.0",
+        "doctrine/annotations": "^1.11",
         "doctrine/cache": "^1.10",
         "illuminate/contracts": "^8.22",
         "illuminate/database": "^8.22",

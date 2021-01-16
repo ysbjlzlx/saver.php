@@ -15,6 +15,7 @@ define('DATA_DIR', dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'data');
 require __DIR__.'/../bootstrap/bootstrap.php';
 
 $containerBuilder = new ContainerBuilder();
+$containerBuilder->useAnnotations(true);
 
 $config = require __DIR__.'/../bootstrap/config.php';
 $config($containerBuilder);
