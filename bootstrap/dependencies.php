@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Event\UserLoginEvent;
+use App\Handler\DatabaseHandler;
 use App\Listener\LogUserLoginEventListener;
 use App\Unit\CacheUnit;
 use DI\ContainerBuilder;
@@ -15,6 +16,7 @@ use League\Flysystem\Filesystem;
 use Monolog\Formatter\JsonFormatter;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
+use Monolog\Processor\IntrospectionProcessor;
 use Monolog\Processor\UidProcessor;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
@@ -52,30 +54,30 @@ return function (ContainerBuilder $containerBuilder) {
         /*
          * 日志
          */
-        LoggerInterface::class => function (ContainerInterface $container) {
+        LoggerInterface::class => function (ContainerInterface $container): Logger {
             $name = 'default';
             $path = __DIR__.'/../vars/logs/'.$name.'.log';
-            $databaseHandler = new \App\Handler\DatabaseHandler();
             $rotatingFileHandler = new RotatingFileHandler($path, 30);
             $rotatingFileHandler->setFormatter(new JsonFormatter());
+            $databaseHandler = new DatabaseHandler(Logger::NOTICE);
             $logger = new Logger($name);
             $logger->pushHandler($rotatingFileHandler);
             $logger->pushHandler($databaseHandler);
             $logger->pushProcessor(new UidProcessor(32));
-            $logger->pushProcessor(new \Monolog\Processor\IntrospectionProcessor());
+            $logger->pushProcessor(new IntrospectionProcessor());
 
             return $logger;
         },
         /*
          * 缓存
          */
-        CacheInterface::class => function (ContainerInterface $container) {
+        CacheInterface::class => function (ContainerInterface $container): CacheUnit {
             return new CacheUnit(new FilesystemCache(__DIR__.'/../vars/cache'));
         },
         /*
          * 事件
          */
-        EventDispatcher::class => function (ContainerInterface $container) {
+        EventDispatcher::class => function (ContainerInterface $container): EventDispatcher {
             $logger = $container->get(LoggerInterface::class);
             $eventDispatcher = new EventDispatcher();
             $eventDispatcher->subscribeTo(UserLoginEvent::class, new LogUserLoginEventListener($logger));
