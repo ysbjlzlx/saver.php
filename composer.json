@@ -14,6 +14,7 @@
         "ext-json": "*",
         "akrabat/ip-address-middleware": "^2.0",
         "doctrine/cache": "^1.10",
+        "guzzlehttp/guzzle": "^7.2",
         "illuminate/contracts": "^8.22",
         "illuminate/database": "^8.22",
         "illuminate/validation": "^8.22",

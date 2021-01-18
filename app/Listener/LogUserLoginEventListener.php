@@ -30,6 +30,6 @@ class LogUserLoginEventListener implements Listener
             return;
         }
         $user = $event->getUser();
-        $this->logger->info('用户登录', $user->toArray());
+        $this->logger->error('用户登录', $user->toArray());
     }
 }

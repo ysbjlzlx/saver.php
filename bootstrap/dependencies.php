@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Event\UserLoginEvent;
 use App\Handler\DatabaseHandler;
+use App\Handler\LogPushHandler;
 use App\Listener\LogUserLoginEventListener;
 use App\Unit\CacheUnit;
 use DI\ContainerBuilder;
@@ -61,8 +62,9 @@ return function (ContainerBuilder $containerBuilder) {
             $rotatingFileHandler->setFormatter(new JsonFormatter());
             $databaseHandler = new DatabaseHandler(Logger::NOTICE);
             $logger = new Logger($name);
-            $logger->pushHandler($rotatingFileHandler);
+            $logger->pushHandler(new LogPushHandler(Logger::ERROR));
             $logger->pushHandler($databaseHandler);
+            $logger->pushHandler($rotatingFileHandler);
             $logger->pushProcessor(new UidProcessor(32));
             $logger->pushProcessor(new IntrospectionProcessor());
 
