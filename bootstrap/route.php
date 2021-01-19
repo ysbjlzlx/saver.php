@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-return function (Slim\App $app) {
+return function (Slim\App $app): void {
     $app->any('/health', App\Action\HealthAction::class);
     $app->get('/swagger-ui', App\Action\SwaggerUiAction::class);
 
     /*
      * account
      */
-    $app->group('', function (Slim\Routing\RouteCollectorProxy $group) {
+    $app->group('', function (Slim\Routing\RouteCollectorProxy $group): void {
+        $group->get('/api/account/profile', App\Action\Account\ProfileAction::class);
         $group->post('/api/account/delete', App\Action\Account\DestroyAccountAction::class);
     })->add(App\Middleware\AuthMiddleware::class);
 

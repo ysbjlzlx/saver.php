@@ -91,16 +91,8 @@ paths:
       summary: 退出登录
       tags:
         - auth
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - token
-              properties:
-                token:
-                  type: string
+      security:
+        - TokenAuth: []
       responses:
         200:
           description: 成功退出登录
@@ -108,23 +100,35 @@ paths:
           $ref: '#/components/responses/422'
         500:
           $ref: '#/components/responses/500'
-
+  /api/account/profile:
+    get:
+      summary: 用户信息
+      tags:
+        - account
+      security:
+        - TokenAuth: []
+      responses:
+        200:
+          description: 正常响应
+          content:
+            application/json:
+              schema:
+                type: object
   /api/account/delete:
     post:
       summary: 销户
       tags:
         - account
+      security:
+        - TokenAuth: []
       requestBody:
         content:
           application/json:
             schema:
               type: object
               required:
-                - token
                 - password
               properties:
-                token:
-                  type: string
                 password:
                   type: string
       responses:
@@ -347,5 +351,10 @@ components:
         text/html:
           schema:
             type: string
+  securitySchemes:
+    TokenAuth:
+      type: apiKey
+      in: query
+      name: token
 
 
