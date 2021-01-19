@@ -6,7 +6,7 @@ use App\Event\UserLoginEvent;
 use App\Handler\DatabaseHandler;
 use App\Handler\LogPushHandler;
 use App\Listener\LogUserLoginEventListener;
-use App\Unit\CacheUnit;
+use App\Unit\CacheUtil;
 use DI\ContainerBuilder;
 use Doctrine\Common\Cache\FilesystemCache;
 use Illuminate\Translation\FileLoader;
@@ -73,8 +73,8 @@ return function (ContainerBuilder $containerBuilder) {
         /*
          * 缓存
          */
-        CacheInterface::class => function (ContainerInterface $container): CacheUnit {
-            return new CacheUnit(new FilesystemCache(__DIR__.'/../vars/cache'));
+        CacheInterface::class => function (ContainerInterface $container): CacheUtil {
+            return new CacheUtil(new FilesystemCache(__DIR__.'/../vars/cache'));
         },
         /*
          * 事件

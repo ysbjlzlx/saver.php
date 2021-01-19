@@ -7,9 +7,9 @@ use Doctrine\Common\Cache\CacheProvider;
 use Illuminate\Contracts\Cache\Repository as CacheInterface;
 
 /**
- * Class CacheUnit.
+ * Class CacheUtil.
  */
-class CacheUnit implements CacheInterface
+class CacheUtil implements CacheInterface
 {
     /**
      * @var CacheProvider

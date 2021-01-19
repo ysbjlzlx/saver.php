@@ -3,7 +3,7 @@
 namespace App\Service;
 
 use App\Model\DataDictModel;
-use App\Unit\CacheUnit;
+use App\Unit\CacheUtil;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -16,9 +16,9 @@ use Psr\SimpleCache\InvalidArgumentException;
 class DataDictService
 {
     /**
-     * @phpstan-template CacheUnit implements CacheInterface
+     * @phpstan-template CacheUtil implements CacheInterface
      *
-     * @var CacheUnit
+     * @var CacheUtil
      */
     private $cache;
     /**

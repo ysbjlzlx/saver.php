@@ -4,7 +4,7 @@ namespace App\Unit;
 
 use Illuminate\Contracts\Hashing\Hasher;
 
-class HashUnit implements Hasher
+class HashUtil implements Hasher
 {
     public function info($hashedValue)
     {
