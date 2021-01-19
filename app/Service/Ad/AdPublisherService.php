@@ -3,6 +3,7 @@
 namespace App\Service\Ad;
 
 use App\Model\Ad\AdPublisherModel;
+use App\Repository\Searchable;
 
 class AdPublisherService
 {
@@ -25,9 +26,10 @@ class AdPublisherService
             'total' => 0,
             'rows' => [],
         ];
-        $model = AdPublisherModel::query();
-        $data['total'] = $model->count();
-        $data['rows'] = $model->take($limit)->skip($offset)->get();
+        $query = AdPublisherModel::query();
+        $query = Searchable::buildQuery($query, $search);
+        $data['total'] = $query->count();
+        $data['rows'] = $query->take($limit)->skip($offset)->get();
 
         return $data;
     }

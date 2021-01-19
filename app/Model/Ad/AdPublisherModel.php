@@ -24,4 +24,9 @@ class AdPublisherModel extends Model
     protected $dates = [
         'email_verified_at', 'updated_at', 'created_at',
     ];
+    public static $searchField = [
+        'username' => [
+            'searchType' => '=',
+        ],
+    ];
 }
