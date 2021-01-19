@@ -140,8 +140,30 @@ CREATE TABLE `ad_application`
     `updated_at`      TIMESTAMP       DEFAULT CURRENT_TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `created_at`      TIMESTAMP       DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '创建时间',
     PRIMARY KEY (`id`),
+    INDEX `idx_ad_publisher_id` (`ad_publisher_id`),
     INDEX `idx_updated_at` (`updated_at`),
     INDEX `idx_created_at` (`created_at`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = `utf8mb4`
-  COLLATE = `utf8mb4_unicode_ci` COMMENT ='日志';
+  COLLATE = `utf8mb4_unicode_ci` COMMENT ='广告主应用';
+-- 删除表
+DROP TABLE IF EXISTS `ad_resource`;
+-- 新建表
+CREATE TABLE `ad_resource`
+(
+    `id`                BIGINT UNSIGNED AUTO_INCREMENT            NOT NULL COMMENT '主键',
+    `ad_publisher_id`   BIGINT UNSIGNED DEFAULT 0                 NOT NULL COMMENT '流量主',
+    `ad_application_id` BIGINT UNSIGNED DEFAULT 0                 NOT NULL COMMENT 'APP ID',
+    `name`              VARCHAR(128)    DEFAULT ''                NOT NULL COMMENT '内部名称',
+    `title`             VARCHAR(128)    DEFAULT ''                NOT NULL COMMENT '外部展示名称',
+    `description`       VARCHAR(255)    DEFAULT ''                NOT NULL COMMENT '资源位描述',
+    `memo`              VARCHAR(255)    DEFAULT ''                NOT NULL COMMENT '备注',
+    `updated_at`        TIMESTAMP       DEFAULT CURRENT_TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `created_at`        TIMESTAMP       DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '创建时间',
+    PRIMARY KEY (`id`),
+    INDEX `idx_ad_publisher_id` (`ad_publisher_id`),
+    INDEX `idx_updated_at` (`updated_at`),
+    INDEX `idx_created_at` (`created_at`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = `utf8mb4`
+  COLLATE = `utf8mb4_unicode_ci` COMMENT ='广告主资源位';
