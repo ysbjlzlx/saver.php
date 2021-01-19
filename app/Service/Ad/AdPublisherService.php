@@ -21,7 +21,7 @@ class AdPublisherService
      *
      * @return Builder[]|Collection
      */
-    public function index(int $limit = 1, int $offset = 0, ?array $search = null)
+    public function index(int $limit = 1, int $offset = 0, array $search = null)
     {
         $model = AdPublisherModel::query();
 
