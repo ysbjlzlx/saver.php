@@ -3,8 +3,6 @@
 namespace App\Service\Ad;
 
 use App\Model\Ad\AdPublisherModel;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 
 class AdPublisherService
 {
@@ -19,13 +17,19 @@ class AdPublisherService
     /**
      * 流量主列表.
      *
-     * @return Builder[]|Collection
+     * @return array 结果集
      */
-    public function index(int $limit = 1, int $offset = 0, array $search = null)
+    public function index(int $limit = 1, int $offset = 0, array $search = null): array
     {
+        $data = [
+            'total' => 0,
+            'rows' => [],
+        ];
         $model = AdPublisherModel::query();
+        $data['total'] = $model->count();
+        $data['rows'] = $model->take($limit)->skip($offset)->get();
 
-        return $model->take($limit)->skip($offset)->get();
+        return $data;
     }
 
     /**
