@@ -1,12 +1,13 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Util;
 
-use App\Unit\CacheUtil;
+use App\Util\CacheUtil;
 use Doctrine\Common\Cache\FilesystemCache;
+use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 
-class CacheUnitTest extends TestCase
+class CacheUtilTest extends TestCase
 {
     /**
      * @var CacheUtil
@@ -21,29 +22,29 @@ class CacheUnitTest extends TestCase
 
     public function testSet(): void
     {
-        $this->cache->set('key', 'OK',10);
-        $this->assertEquals('OK', $this->cache->get('key'));
+        $this->cache->set('key', 'OK', 10);
+        Assert::assertEquals('OK', $this->cache->get('key'));
     }
 
     public function testGet(): void
     {
         $this->cache->set('key', 'OK');
-        $this->assertEquals('OK', $this->cache->get('key'));
+        Assert::assertEquals('OK', $this->cache->get('key'));
     }
 
     public function testHas(): void
     {
         $this->cache->set('key', 'OK');
-        $this->assertTrue($this->cache->has('key'));
+        Assert::assertTrue($this->cache->has('key'));
         $this->cache->delete('key');
-        $this->assertFalse($this->cache->has('key'));
+        Assert::assertFalse($this->cache->has('key'));
     }
 
     public function testDelete(): void
     {
         $this->cache->set('key', 'OK');
-        $this->assertTrue($this->cache->has('key'));
+        Assert::assertTrue($this->cache->has('key'));
         $this->cache->delete('key');
-        $this->assertFalse($this->cache->has('key'));
+        Assert::assertFalse($this->cache->has('key'));
     }
 }
