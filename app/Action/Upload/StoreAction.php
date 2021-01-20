@@ -3,17 +3,20 @@
 namespace App\Action\Upload;
 
 use App\Action\Action;
+use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Validation\Factory;
 use Illuminate\Validation\ValidationException;
-use League\Flysystem\Filesystem;
-use League\Flysystem\FilesystemException;
+use League\Flysystem\FileExistsException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
 class StoreAction extends Action
 {
     /**
-     * @var Filesystem
+     * @phpstan-template FilesystemAdapter implements Filesystem
+     *
+     * @var FilesystemAdapter
      */
     private $filesystem;
 
@@ -26,7 +29,7 @@ class StoreAction extends Action
 
     /**
      * @throws ValidationException
-     * @throws FilesystemException
+     * @throws FileExistsException
      */
     protected function action(): ResponseInterface
     {
