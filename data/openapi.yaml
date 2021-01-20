@@ -169,6 +169,8 @@ paths:
                   rows:
                     type: array
                     description: 数据
+                    items:
+                      type: object
   /api/data-dict/store:
     post:
       description: 添加数据字典
@@ -330,8 +332,42 @@ paths:
       responses:
         200:
           description: 正常响应
+  /api/panel/data-dict/index:
+    get:
+      summary: 数据字典列表
+      tags:
+        - Panel DataDict
+      parameters:
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/offsetParam'
+      responses:
+        200:
+          description: 正常响应
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/indexResponse'
+
 
 components:
+  parameters:
+    limitParam:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 1
+        example: 15
+        minimum: 1
+    offsetParam:
+      name: offset
+      in: query
+      schema:
+        type: integer
+        default: 0
+        example: 0
+        minimum: 0
+
   responses:
     404:
       description: 未找到相关文件
@@ -351,6 +387,33 @@ components:
         text/html:
           schema:
             type: string
+  schemas:
+    indexRequest:
+      description: 一般是列表类的请求
+      type: object
+      properties:
+        limit:
+          description: 获取数据量
+          type: integer
+          default: 1
+          example: 1
+          minimum: 1
+        offset:
+          description: 跳过数据量
+          type: integer
+          default: 0
+          example: 0
+          minimum: 0
+    indexResponse:
+      description: 一般是列表类数据响应
+      type: object
+      properties:
+        total:
+          type: integer
+        rows:
+          type: array
+          items:
+            type: object
   securitySchemes:
     TokenAuth:
       type: apiKey

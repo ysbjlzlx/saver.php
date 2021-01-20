@@ -42,4 +42,10 @@ return function (Slim\App $app): void {
     $app->get('/api/data-dict/show', App\Action\DataDict\ShowAction::class);
     $app->post('/api/data-dict/store', App\Action\DataDict\StoreAction::class);
     $app->put('/api/data-dict/update', App\Action\DataDict\UpdateAction::class);
+    /*
+     * panel
+     */
+    $app->group('', function (Slim\Routing\RouteCollectorProxy $group) {
+        $group->get('/api/panel/data-dict/index', App\Action\Panel\DataDict\IndexAction::class);
+    })->add(App\Middleware\AuthMiddleware::class);
 };
