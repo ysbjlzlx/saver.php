@@ -47,4 +47,14 @@ class CacheUtilTest extends TestCase
         $this->cache->delete('key');
         Assert::assertFalse($this->cache->has('key'));
     }
+
+    /**
+     * 测试重设缓存值时，是否会修改过期时间.
+     * 结论：会刷新缓存的时间，其他缓存系统也都是如此实现的.
+     */
+    public function testExpire(): void
+    {
+        $this->cache->set('key', 'OK', 300);
+        $this->cache->set('key', 'Second-1');
+    }
 }

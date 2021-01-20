@@ -6,7 +6,7 @@ use App\Event\UserLoginEvent;
 use App\Handler\DatabaseHandler;
 use App\Handler\LogPushHandler;
 use App\Listener\LogUserLoginEventListener;
-use App\Unit\CacheUtil;
+use App\Util\CacheUtil;
 use DI\ContainerBuilder;
 use Doctrine\Common\Cache\FilesystemCache;
 use Illuminate\Translation\FileLoader;
