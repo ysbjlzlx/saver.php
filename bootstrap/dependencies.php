@@ -25,12 +25,13 @@ use Twig\Environment;
 return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
         /*
-         * Filesystem 文件存储
+         * Filesystem
          */
-        Filesystem::class => function (ContainerInterface $container) {
-            $adapter = new League\Flysystem\Local\LocalFilesystemAdapter(DATA_DIR);
+        Illuminate\Contracts\Filesystem\Filesystem::class => function (ContainerInterface $container): Illuminate\Filesystem\FilesystemAdapter {
+            $adapter = new \League\Flysystem\Adapter\Local(DATA_DIR);
+            $filesystem = new Filesystem($adapter);
 
-            return new League\Flysystem\Filesystem($adapter);
+            return new \Illuminate\Filesystem\FilesystemAdapter($filesystem);
         },
         /*
          * Twig 模板渲染

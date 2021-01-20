@@ -3,8 +3,9 @@
 namespace App\Action\Upload;
 
 use App\Action\Action;
+use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Validation\Factory;
-use League\Flysystem\Filesystem;
 use League\Flysystem\FilesystemException;
 use League\MimeTypeDetection\FinfoMimeTypeDetector;
 use Psr\Http\Message\ResponseInterface;
@@ -13,7 +14,9 @@ use Psr\Log\LoggerInterface;
 class ShowAction extends Action
 {
     /**
-     * @var Filesystem
+     * @phpstan-template FilesystemAdapter implements Filesystem
+     *
+     * @var FilesystemAdapter
      */
     private $filesystem;
     /**
@@ -35,7 +38,7 @@ class ShowAction extends Action
     {
         $key = $this->request->getQueryParam('key');
 
-        if ($this->filesystem->fileExists($key)) {
+        if ($this->filesystem->exists($key)) {
             $mimeType = $this->filesystem->mimeType($key);
             if ('text/plain' === $mimeType) {
                 $this->response->getBody()->write($this->filesystem->read($key));
