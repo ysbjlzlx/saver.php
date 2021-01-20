@@ -2,14 +2,14 @@
 
 namespace App\Middleware;
 
-use App\Util\CacheUtil;
+use Illuminate\Cache\Repository;
+use Illuminate\Contracts\Cache\Repository as CacheContract;
 use Monolog\Logger;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Log\LoggerInterface;
-use Psr\SimpleCache\CacheInterface;
 
 /**
  * Class RateLimitMiddleware.
@@ -20,9 +20,9 @@ use Psr\SimpleCache\CacheInterface;
 class RateLimitMiddleware implements MiddlewareInterface
 {
     /**
-     * @phpstan-template CacheUtil implements CacheInterface
+     * @phpstan-template Repository implements CacheContract
      *
-     * @var CacheUtil
+     * @var Repository
      */
     private $cache;
     /**
@@ -32,7 +32,7 @@ class RateLimitMiddleware implements MiddlewareInterface
      */
     private $logger;
 
-    public function __construct(CacheInterface $cache, LoggerInterface $logger)
+    public function __construct(CacheContract $cache, LoggerInterface $logger)
     {
         $this->cache = $cache;
         $this->logger = $logger;

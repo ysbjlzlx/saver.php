@@ -3,22 +3,22 @@
 namespace App\Service;
 
 use App\Model\DataDictModel;
-use App\Unit\CacheUtil;
+use Illuminate\Cache\Repository;
+use Illuminate\Contracts\Cache\Repository as CacheContract;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
-use Psr\SimpleCache\CacheInterface;
 use Psr\SimpleCache\InvalidArgumentException;
 
 class DataDictService
 {
     /**
-     * @phpstan-template CacheUtil implements CacheInterface
+     * @phpstan-template Repository implements CacheContract
      *
-     * @var CacheUtil
+     * @var Repository
      */
     private $cache;
     /**
@@ -28,7 +28,7 @@ class DataDictService
      */
     private $logger;
 
-    public function __construct(CacheInterface $cache, LoggerInterface $logger)
+    public function __construct(CacheContract $cache, LoggerInterface $logger)
     {
         $this->cache = $cache;
         $this->logger = $logger;

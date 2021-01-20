@@ -6,9 +6,8 @@ use App\Event\UserLoginEvent;
 use App\Handler\DatabaseHandler;
 use App\Handler\LogPushHandler;
 use App\Listener\LogUserLoginEventListener;
-use App\Util\CacheUtil;
 use DI\ContainerBuilder;
-use Doctrine\Common\Cache\FilesystemCache;
+use Illuminate\Contracts\Cache\Repository as CacheContract;
 use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\Translator;
 use Illuminate\Validation\Factory;
@@ -21,7 +20,6 @@ use Monolog\Processor\IntrospectionProcessor;
 use Monolog\Processor\UidProcessor;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
-use Psr\SimpleCache\CacheInterface;
 use Twig\Environment;
 
 return function (ContainerBuilder $containerBuilder) {
@@ -71,12 +69,6 @@ return function (ContainerBuilder $containerBuilder) {
             return $logger;
         },
         /*
-         * 缓存
-         */
-        CacheInterface::class => function (ContainerInterface $container): CacheUtil {
-            return new CacheUtil(new FilesystemCache(__DIR__.'/../vars/cache'));
-        },
-        /*
          * 事件
          */
         EventDispatcher::class => function (ContainerInterface $container): EventDispatcher {
@@ -85,6 +77,12 @@ return function (ContainerBuilder $containerBuilder) {
             $eventDispatcher->subscribeTo(UserLoginEvent::class, new LogUserLoginEventListener($logger));
 
             return $eventDispatcher;
+        },
+        CacheContract::class => function (ContainerInterface $container): CacheContract {
+            $path = __DIR__.'/../vars/cache';
+            $fileStore = new \Illuminate\Cache\FileStore(new \Illuminate\Filesystem\Filesystem(), $path);
+
+            return new \Illuminate\Cache\Repository($fileStore);
         },
     ]);
 };
