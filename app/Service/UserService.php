@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Model\UserModel;
+use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -10,6 +11,16 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserService
 {
+    /**
+     * @var Hasher
+     */
+    private $hasher;
+
+    public function __construct(Hasher $hasher)
+    {
+        $this->hasher = $hasher;
+    }
+
     /**
      * 判断用户名是否已存在.
      *
@@ -34,7 +45,7 @@ class UserService
     {
         $user = new UserModel();
         $user->username = $username;
-        $user->password = password_hash($password, PASSWORD_BCRYPT);
+        $user->password = $this->hasher->make($password);
         $user->save();
 
         return $user;
@@ -89,7 +100,7 @@ class UserService
      */
     public function checkPassword(UserModel $userModel, string $password): bool
     {
-        return password_verify($password, $userModel->password);
+        return $this->hasher->check($password, $userModel->password);
     }
 
     /**

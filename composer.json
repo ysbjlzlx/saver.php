@@ -17,6 +17,7 @@
         "illuminate/cache": "^8.23",
         "illuminate/contracts": "^8.22",
         "illuminate/database": "^8.22",
+        "illuminate/hashing": "^8.23",
         "illuminate/validation": "^8.22",
         "league/event": "^3.0",
         "league/flysystem": "^2.0",

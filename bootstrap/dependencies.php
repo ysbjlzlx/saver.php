@@ -84,5 +84,11 @@ return function (ContainerBuilder $containerBuilder) {
 
             return new \Illuminate\Cache\Repository($fileStore);
         },
+        /*
+         * hash
+         */
+        \Illuminate\Contracts\Hashing\Hasher::class => function (ContainerInterface $container): Illuminate\Contracts\Hashing\Hasher {
+            return new \Illuminate\Hashing\BcryptHasher();
+        },
     ]);
 };
